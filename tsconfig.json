@@ -1,0 +1,35 @@
+{
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/common/database/migrations/*",
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2020",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "src",
+    "incremental": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@modules/*": ["modules/*"],
+      "@common/*": ["common/*"],
+      "@config/*": ["config/*"],
+      "@enums/*": ["common/enums/*"],
+      "@interfaces/*": ["common/interfaces/*"],
+      "@utils/*": ["common/utils/*"],
+      "@types/*": ["common/types/*"],
+      "@models": ["DAL/models"],
+      "@currentUser": ["common/decorators/current-user.decorator"],
+      "@userRoles": ["common/decorators/roles.decorator"]
+    },
+  }
+}

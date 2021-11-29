@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  main:
+    container_name: iweb-backend
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/iweb-backend
+      - /iweb-backend/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    command: npm run dev
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mariadb
+  mysql:
+    container_name: mariadb
+    image: mariadb:10.3.31
+    networks:
+      - webnet
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - iweb-mysql-data:/var/lib/mysql
+networks:
+  webnet:
+volumes:
+  iweb-mysql-data:
