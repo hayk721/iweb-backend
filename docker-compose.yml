@@ -15,26 +15,35 @@ services:
     env_file:
       - .env
     networks:
-      - webnet
+      - iwebnet
     depends_on:
       - mysql
+      - redis
     environment:
-      DB_HOST: mariadb
+      DB_HOST: iwap-mariadb
+      REDIS_HOST: iwap-redis
   mysql:
-    container_name: mariadb
+    container_name: iwap-mariadb
     image: mariadb:10.3.31
     networks:
-      - webnet
+      - iwebnet
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: ${DB_NAME}
       MARIADB_USER: ${DB_USER}
       MARIADB_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 3306:3306
+      - ${DB_PORT}:${DB_PORT}
     volumes:
       - iweb-mysql-data:/var/lib/mysql
+  redis:
+    container_name: iwap-redis
+    image: 'redis:alpine'
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    networks:
+      - iwebnet
 networks:
-  webnet:
+  iwebnet:
 volumes:
   iweb-mysql-data:

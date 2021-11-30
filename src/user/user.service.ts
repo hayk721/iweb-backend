@@ -1,153 +1,138 @@
-import { Injectable, HttpException, HttpStatus, BadRequestException, NotFoundException } from "@nestjs/common";
-import { ValidationError, UniqueConstraintError, Transaction } from 'sequelize';
+import { Injectable } from '@nestjs/common';
+import { Op } from 'sequelize';
+import { IEmailVerification } from '@common/interfaces/auth/IEmailVerification';
 import { hashSync, genSaltSync } from 'bcrypt';
 import { Sequelize } from 'sequelize-typescript';
 import { InjectModel } from '@nestjs/sequelize';
-import { UserModel } from './models/user.model';
-import { UserEntity } from './user.entity';
-import { USER_TYPES } from '@common/enums/user-types';
-import { IJwtPayload } from '@interfaces/auth/IJwtPayload';
-import { EditUserDto } from "./dto/update-user.dto";
+import { User } from './models/user.model';
+import { Role } from './role/models/role.model';
+import { FcmNotification } from '../firebase/models/fcm-notifications.model';
+import { ChangeUserRoleDto, ChangeUserSuspendDto } from './user-managment/user-management.dto';
+import { CreateUserDto } from '../auth/auth.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly _sequelize: Sequelize,
-    @InjectModel(UserModel)
-    private readonly _user: typeof UserModel,
+    @InjectModel(User)
+    private readonly _user: typeof User,
   ) {}
 
   /**
    * @description Create New User
    */
-  public async createNewUser(user: any): Promise<UserModel> {
-    return this._sequelize
-      .transaction<UserModel>(async (trans: Transaction) => {
-        return this._user.create<UserModel>({ password: 'u2dege345ghf6', ...user }, { transaction: trans });
-      })
-      .catch((err) => {
-        if (err instanceof ValidationError || err instanceof UniqueConstraintError) {
-          if (err.errors.length > 0) {
-            throw new BadRequestException(
-              err.errors.map((e) => {
-                return e.message;
-              }),
-            );
-          }
-          throw err;
-        } else throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
-      });
+  public async createNewUser($user: CreateUserDto): Promise<User> {
+    const transaction = await this._sequelize.transaction();
+    try {
+      const user = await this._user.create<User>($user, { transaction });
+      await transaction.commit();
+      return user;
+    } catch (e) {
+      await transaction.rollback();
+      throw e;
+    }
   }
 
   public async changeProfilePic(url: string, id: string) {
-    await this._user.update<UserModel>({ profilePic: url }, { where: { id: id } });
+    await this._user.update<User>({ profilePic: url }, { where: { id: id } });
   }
 
   /**
    * @description Update User Password
-   * @param user
-   * @param password
    */
-  public async changePassword(user: UserEntity, password: string): Promise<void> {
+  public async changePassword($user: User, $password: string) {
     const salt = genSaltSync(12);
-    const hashedPassword = hashSync(password, salt);
-    return this._sequelize
-      .transaction(async (trans) => {
-        await this._user.update<UserModel>(
-          {
-            password: hashedPassword,
-            lastLogOutDate: new Date(),
+    const hashedPassword = hashSync($password, salt);
+    const transaction = await this._sequelize.transaction();
+    try {
+      const user = await User.update<User>(
+        {
+          password: hashedPassword,
+          lastLogOutDate: new Date(),
+          isLoggedOut: true,
+        },
+        {
+          where: {
+            id: $user.id,
+            isSuspend: false,
           },
-          {
-            where: {
-              id: user.id,
-              isSuspend: false,
-            },
-            transaction: trans,
-          },
-        );
-      })
-      .catch((err) => {
-        if (err instanceof ValidationError || err instanceof UniqueConstraintError) throw err;
-        else throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
-      });
+          transaction,
+        },
+      );
+      await transaction.commit();
+      return user;
+    } catch (e) {
+      await transaction.rollback();
+      throw e;
+    }
   }
 
   /**
    * update last Login Date
    */
-  public async updateLoginDate(user: UserModel) {
-    return this._sequelize
-      .transaction(async (trans) => {
-        await this._user.update<UserModel>(
-          {
-            lastLoginDate: new Date(),
-            isLoggedOut: false,
+  public async updateLoginDate($user: User) {
+    const transaction = await this._sequelize.transaction();
+    try {
+      const user = await User.update<User>(
+        {
+          lastLoginDate: new Date(),
+          isLoggedOut: false,
+        },
+        {
+          where: {
+            id: $user.id,
+            isEmailVerified: true,
+            isSuspend: false,
           },
-          {
-            where: {
-              id: user.id,
-              //isEmailVerified: true,
-              isSuspend: false,
-            },
-            transaction: trans,
-          },
-        );
-      })
-      .catch((err) => {
-        if (err instanceof ValidationError || err instanceof UniqueConstraintError) throw err;
-        else throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
-      });
+          transaction,
+        },
+      );
+      await transaction.commit();
+      return user;
+    } catch (e) {
+      await transaction.rollback();
+      throw e;
+    }
   }
 
   /**
    * update logoutDate
    */
-  public async setAsLoggedOut(user: UserEntity): Promise<boolean> {
-    return this._sequelize
-      .transaction(async (trans) => {
-        await this._user.update<UserModel>(
-          {
-            lastLogOutDate: new Date(),
-            isLoggedOut: true,
-          },
-          {
-            where: {
-              id: user.id,
-            },
-            transaction: trans,
-          },
-        );
-        return true;
-      })
-      .catch((err) => {
-        return false;
-      });
-  }
-  /**
-   * @description Get User Data By His Email Address
-   * @param udhId
-   */
-  public async getUserByUdhId(udhId: string): Promise<UserModel | null> {
+  public async setAsLoggedOut($user: User) {
+    const transaction = await this._sequelize.transaction();
     try {
-      return await this._user.findOne({ where: { udhId: udhId } });
-    } catch (err) {
-      console.log(err);
-      return null;
+      const user = await User.update<User>(
+        {
+          lastLogOutDate: new Date(),
+          isLoggedOut: true,
+        },
+        {
+          where: {
+            id: $user.id,
+          },
+          transaction,
+        },
+      );
+      await transaction.commit();
+      return user;
+    } catch (e) {
+      await transaction.rollback();
+      throw e;
     }
   }
+
   /**
    * @description Get User Data By His Email Address
-   * @param $mrn
+   * @param $email
    */
-  public async getUserByMRN($mrn: string): Promise<UserModel | null> {
+  public async getUserByEmail($email: string): Promise<User> {
     try {
-      return await this._user.findOne({
+      return await User.findOne({
         where: {
-          mrn: $mrn,
-          userType: USER_TYPES.Patient,
+          email: $email,
         },
-        attributes: ['id', 'email', 'password', 'isSuspend', 'mrn'],
+        attributes: ['id', 'email', 'password', 'isEmailVerified', 'isSuspend', 'isNew'],
+        include: [{ model: Role, attributes: ['name'] }],
       });
     } catch (err) {
       console.log(err);
@@ -156,42 +141,88 @@ export class UserService {
   }
 
   /**
-   * @description Get User Data By Id
-   * @param id
+   * @description Get User fcm tokens by role
+   * @param roleNames
+   * @param excludeUsers: string[] - exclude some users
    */
-  public async getUserById(id: string): Promise<UserModel> {
-    return this._user.findByPk<UserModel>(id);
+  public async getUserByRole(roleNames: string[], excludeUsers: string[] = []): Promise<User[]> {
+    try {
+      return await this._user.findAll({
+        where: {
+          id: { [Op.notIn]: excludeUsers },
+        },
+        include: [
+          {
+            model: Role,
+            where: {
+              name: roleNames,
+            },
+            attributes: [],
+          },
+          {
+            model: FcmNotification,
+            attributes: ['token'],
+          },
+        ],
+      });
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  }
+
+  /**
+   * @description Get User Data By His Email Address
+   * @param $id
+   * @param withModels
+   */
+  public async getUserById($id: string, withModels: string[] = []): Promise<User> {
+    return await User.findByPk<User>($id, {
+      include: withModels,
+      attributes: ['id', 'email', 'isEmailVerified', 'isMobileVerified', 'createdAt', 'isNew', 'profilePic', 'mobileNumber', 'identityId', 'lang'],
+    });
   }
 
   /**
    * @description Check User Data By His JWT Decoded Data
-   * @param payload
+   * @param $id
    */
-  public async validateUser(payload: IJwtPayload): Promise<UserEntity> {
-    return await this._user.findByPk<UserModel>(payload.id);
+  public async validateUser($id: string): Promise<User> {
+    const user = await User.findByPk<User>($id, {
+      attributes: { exclude: ['password'] },
+      include: Role,
+    });
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
   }
-  /* /!**
-   * @description update passcode
-   * @param passcode
-   *!/
-  public async setPasscode(passcode:string) {
-    return this._sequelize.transaction(async trans => {
-      await this._user.update(
-        { isMobileVerified: true , passcode},
+
+  /********************************* Activation Services ********************************/
+  /**
+   * @description Set user email as active
+   * @param emailVerification
+   */
+  public async verifyEmail(emailVerification: IEmailVerification) {
+    return await this._sequelize.transaction(async (trans) => {
+      await User.update(
+        { isEmailVerified: true },
         {
-          where: { id: user.id },
+          where: { id: emailVerification.userId, email: emailVerification.email },
           transaction: trans,
         },
       );
     });
-  }*/
+  }
+
   /**
    * @description Set user's mobile number  as verified
    * @param user
    */
-  public async setMobileNumberAsVerified(user: UserEntity) {
-    return this._sequelize.transaction(async (trans) => {
-      await this._user.update(
+  public async setMobileNumberAsVerified(user: User) {
+    return await this._sequelize.transaction(async (trans) => {
+      await User.update(
         { isMobileVerified: true },
         {
           where: { id: user.id },
@@ -201,9 +232,8 @@ export class UserService {
     });
   }
 
-  public async updateNewUserFlag($user: UserEntity) {
+  public async updateNewUserFlag($user: User) {
     try {
-      console.log('[UPDATING_NEW_USER_FLAG]');
       await this._user.update({ isNew: false }, { where: { id: $user.id } });
       return;
     } catch (err) {
@@ -212,21 +242,61 @@ export class UserService {
     }
   }
 
-  /**
-   * update user
-   * @param id
-   * @param editUserDto
-   */
-  async update(id: string, editUserDto: EditUserDto): Promise<UserModel> {
-    const user: UserModel = await this.getUserById(id);
-    if (!user) throw new NotFoundException('User not found');
-    return await user.update(editUserDto);
+  async changeUserRole(changeUserRoleDto: ChangeUserRoleDto) {
+    try {
+      const role = await Role.findOne({
+        where: {
+          name: changeUserRoleDto.role,
+        },
+      });
+
+      return await this._user.update(
+        {
+          roleId: role.id,
+        },
+        {
+          where: {
+            id: changeUserRoleDto.userId,
+          },
+        },
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
   }
 
-  /**
-   * @description get patients count
-   */
-  public async getUserCount(): Promise<number> {
-    return await this._user.count();
+  async changeUserSuspend(changeUserSuspendDto: ChangeUserSuspendDto) {
+    try {
+      return await this._user.update(
+        {
+          isSuspend: changeUserSuspendDto.suspend,
+        },
+        {
+          where: {
+            id: changeUserSuspendDto.userId,
+          },
+        },
+      );
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  }
+
+  async changeUserPassword(id: string, password: string) {
+    const salt = genSaltSync(12);
+    const hashedPassword = hashSync(password, salt);
+    return await this._user.update(
+      {
+        password: hashedPassword,
+      },
+      {
+        where: {
+          id,
+          isSuspend: false,
+        },
+      },
+    );
   }
 }

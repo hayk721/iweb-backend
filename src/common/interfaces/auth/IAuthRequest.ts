@@ -1,4 +1,4 @@
 export interface IAuthRequest {
-  id: string;
+  email: string;
   password: string;
 }

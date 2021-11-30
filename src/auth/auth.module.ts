@@ -5,14 +5,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { jwtConstants } from '@common/constants/jwt.constants';
-import { UserModule } from '../user/user.module';
-import { PasswordReset } from './models/password-reset.model';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { MailModule } from '../mail/mail.module';
+import { EmailVerification } from './models/email-verifications.model';
+import { PasswordReset } from './models/password-reset.model';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
     UserModule,
-    SequelizeModule.forFeature([PasswordReset]),
+    MailModule,
+    SequelizeModule.forFeature([EmailVerification, PasswordReset]),
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,

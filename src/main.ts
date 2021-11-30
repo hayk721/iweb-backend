@@ -30,7 +30,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  app.register(fastifyHelmet, {
+  await app.register(fastifyHelmet, {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: [`'self'`],
@@ -44,8 +44,6 @@ async function bootstrap() {
   app.useGlobalFilters(new ValidationExceptionFilter());
   app.enableCors();
 
-  await app.listen(process.env.SERVER_PORT, '0.0.0.0');
-  // app.enableCors(corsOptions);
-  // await app.listen(4000);
+  await app.listen(process.env.SERVER_PORT);
 }
 bootstrap();

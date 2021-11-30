@@ -14,7 +14,7 @@ export class PasswordReset extends Model {
   })
   public id: string;
 
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ validate: { isEmail: true }, type: DataType.STRING, allowNull: false })
   email: string;
 
   @Column({ type: DataType.STRING, allowNull: false })

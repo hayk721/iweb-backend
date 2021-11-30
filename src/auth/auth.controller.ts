@@ -1,97 +1,88 @@
-import { BadRequestException, Body, Controller, Get, Patch, Post, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, Put, Patch, BadRequestException } from '@nestjs/common';
+import { IAuthResponse } from '@interfaces/auth/IAuthResponse';
 import { AuthService } from './auth.service';
 import { MessageCodeError } from '@common/errors/message-code-error';
-import { UserService } from '../user/user.service';
 import { CurrentUser } from '@currentUser';
-import { IAuthResponse } from '@interfaces/auth/IAuthResponse';
-import { UserEntity } from '../user/user.entity';
-import { CreateResetPasswordDto } from './dto/create-reset-password.dto';
-import { ResetPasswordDto } from './dto/reset-password.dto';
-import { RegisterUser } from './dto/register-user.dto';
-import { VerifyPasscodeDto } from './dto/verify-passcode.dto';
-import { LoginDto } from './dto/login.dto';
-import { ISuccessResponse } from '@interfaces/response/ISuccessResponse';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { MailService } from '../mail/mail.service';
+import { IsPublic } from '@common/decorators/is-public.decorator';
+import { ApiTags } from '@nestjs/swagger';
+import { UserService } from '../user/user.service';
+import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, CreateUserDto, ResetPasswordDto } from './auth.dto';
+import { User } from '../user/models/user.model';
+import { Roles } from '@userRoles';
 
-@ApiTags('Auth')
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly _auth: AuthService, private readonly _user: UserService) {}
-
+  constructor(private readonly _auth: AuthService, private readonly _user: UserService, private readonly _mail: MailService) {}
   /**
-   * @description Register New User
-   * @param user: RegisterUser
+   * Create New User => required Many related Works
    */
+  @IsPublic()
   @Post('register')
-  async register(@Body(new ValidationPipe()) user: RegisterUser): Promise<ISuccessResponse> {
-    await this._auth.createNewUser(user);
-    return { statusCode: 201, message: 'Sms with passcode sent to user' };
+  async createNewUser(@Body() user: CreateUserDto): Promise<IAuthResponse> {
+    return (await this._auth.createNewUser(user)) as IAuthResponse;
   }
 
   /**
-   * @description Verify mobile number
-   * @param body: VerifyPasscodeDto
-   */
-  @Post('verify-passcode')
-  async verifyPasscode(@Body(new ValidationPipe()) body: VerifyPasscodeDto): Promise<ISuccessResponse> {
-    const user = await this._auth.verifyPasscode(body);
-    if (!user) throw new BadRequestException('Passcode not valid');
-    return {
-      statusCode: 200,
-      message: 'Passcode is valid',
-      data: { name: user.name, surname: user.surname, nameAr: user.nameAr, surnameAr: user.surnameAr },
-    };
-  }
-
-  /**
-   * @description Log in to system
+   * @description Log in
    * @param credential
    */
+  @IsPublic()
   @Post('login')
-  public async login(@Body(new ValidationPipe()) credential: LoginDto): Promise<IAuthResponse> {
+  public async login(@Body() credential: AuthRequestDto): Promise<IAuthResponse> {
     if (!credential) {
       throw new MessageCodeError('auth:login:missingInformation');
-    } else if (!credential.udhId) {
-      throw new MessageCodeError('auth:login:missingId');
+    } else if (!credential.username) {
+      throw new MessageCodeError('auth:login:missingEmail/MRN/Username');
     } else if (!credential.password) {
       throw new MessageCodeError('auth:login:missingPassword');
     }
-
-    return await this._auth.auth(credential);
+    try {
+      return await this._auth.auth(credential);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  /**
-   * @description Log out from system
-   * @param user: User
-   */
-  @ApiBearerAuth('jwt-token')
-  @Get('logout')
-  @UseGuards(JwtAuthGuard)
-  public async logOut(@CurrentUser() user: UserEntity): Promise<ISuccessResponse> {
-    if (!user) throw new MessageCodeError('auth:logout:notLoggedIn');
-    await this._auth.logout(user);
-    return { statusCode: 200, message: 'user successfully logs out' };
+  @Post('logout')
+  public async logOut(@CurrentUser() user: User) {
+    if (!user) {
+      throw new MessageCodeError('auth:logout:notLoggedIn');
+    }
+    return await this._auth.logout(user);
   }
-
   /**
-   * @description request for password reset
-   * @param createResetPasswordDto
+   * change given user Password
    */
+
+  @Put('user/password')
+  @Roles('Admin')
+  public async changePasswordByUserId(@Body() changePasswordRequest: ChangePasswordDto) {
+    return await this._auth.changePassword(changePasswordRequest.id, changePasswordRequest);
+  }
+  /**
+   * changePassword
+   */
+  @Put('password')
+  public async changePassword(@CurrentUser() user: User, @Body() changePasswordRequest: ChangeCurrentUserPasswordDto) {
+    return await this._auth.changePassword(user.id, changePasswordRequest);
+  }
+  /**
+   * forgot-password
+   */
+  @IsPublic()
   @Post('forgot-password')
-  public async forgotPassword(@Body(new ValidationPipe()) createResetPasswordDto: CreateResetPasswordDto): Promise<ISuccessResponse> {
+  public async forgotPassword(@Body() createResetPasswordDto: CreateResetPasswordDto) {
     await this._auth.forgotPassword(createResetPasswordDto);
-    return { statusCode: 200, message: 'SMS with confirmation code sent to user' };
+    return { statusCode: 200, message: "An email with a confirmation token has been sent to the user's email" };
   }
-
   /**
-   * @description Set new password
-   * @param body: ResetPasswordDto
+   * forgot-password
    */
-  @Patch('set-password')
-  async setPassword(@Body(new ValidationPipe()) body: ResetPasswordDto): Promise<ISuccessResponse> {
-    await this._auth.resetPassword(body);
-
-    return { statusCode: 200, message: 'password set successfully' };
+  @IsPublic()
+  @Patch('reset-password')
+  public async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return await this._auth.resetPassword(resetPasswordDto);
   }
 }

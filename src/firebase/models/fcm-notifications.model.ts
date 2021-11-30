@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, IsUUID, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { UserModel } from '../../user/models/user.model';
+import { User } from '../../user/models/user.model';
 
 /**
  *
@@ -25,9 +25,9 @@ export class FcmNotification extends Model {
    * Relations
    */
 
-  @BelongsTo(() => UserModel, { foreignKey: 'userId' })
-  user: UserModel;
-  @ForeignKey(() => UserModel)
+  @BelongsTo(() => User, { foreignKey: 'userId' })
+  user: User;
+  @ForeignKey(() => User)
   @Column({ type: DataType.STRING(36), allowNull: false })
   userId: string;
 }

@@ -31,11 +31,6 @@ var migrationCommands = [
           allowNull: false,
           type: Sequelize.UUID,
         },
-        udh_id: {
-          unique: true,
-          allowNull: false,
-          type: Sequelize.STRING(25),
-        },
         email: {
           validate: {
             isEmail: true,
@@ -69,14 +64,10 @@ var migrationCommands = [
           allowNull: true,
           type: Sequelize.STRING(15),
         },
-        mrn: {
-          unique: true,
+        lang: {
+          type: Sequelize.ENUM(['en', 'ar']),
           allowNull: false,
-          type: Sequelize.STRING(10),
-        },
-        user_type: {
-          allowNull: true,
-          type: Sequelize.SMALLINT(1),
+          defaultValue: 'ar',
         },
         is_mobile_verified: {
           allowNull: true,
@@ -89,14 +80,6 @@ var migrationCommands = [
         is_suspend: {
           allowNull: true,
           type: Sequelize.BOOLEAN,
-        },
-        passcode: {
-          allowNull: true,
-          type: Sequelize.STRING(6),
-        },
-        locale: {
-          allowNull: true,
-          type: Sequelize.ENUM('en', 'ar'),
         },
         last_login_date: {
           allowNull: true,

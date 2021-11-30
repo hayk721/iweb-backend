@@ -1,8 +1,22 @@
-import { BeforeCreate, Column, DataType, HasMany, IsUUID, Model, Scopes, Table } from 'sequelize-typescript';
-import { genSaltSync, hashSync } from 'bcrypt';
-import { USER_TYPES_NO } from '@enums/user-types';
+import {
+  AfterCreate,
+  AfterSave,
+  BeforeCreate,
+  BelongsTo,
+  Column,
+  DataType,
+  DefaultScope,
+  ForeignKey,
+  HasMany,
+  IsUUID,
+  Model,
+  Scopes,
+  Table,
+} from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { UserEntity } from '../user.entity';
+import { genSaltSync, hashSync } from 'bcrypt';
+import { LANG } from '@enums/user-lang.enum';
+import { Role } from '../role/models/role.model';
 import { FcmNotification } from '../../firebase/models/fcm-notifications.model';
 
 /**
@@ -10,67 +24,48 @@ import { FcmNotification } from '../../firebase/models/fcm-notifications.model';
  */
 tableOptions.tableName = 'user';
 
-/*@DefaultScope({
-  attributes: { exclude: ['password'] }
-})*/
+@DefaultScope({
+  attributes: { exclude: ['password'] },
+})
 @Scopes(() => ({
   withoutPassword: {
     attributes: { exclude: ['password'] },
   },
 }))
 @Table(tableOptions)
-export class UserModel extends Model {
+export class User extends Model {
   @IsUUID('4')
   @Column({
-    type: DataType.UUID,
+    type: DataType.STRING(36),
     allowNull: false,
     primaryKey: true,
     defaultValue: DataType.UUIDV4,
-    unique: true,
   })
   public id: string;
 
-  @Column({ validate: { isEmail: true }, type: DataType.STRING, unique: true })
+  @Column({ validate: { isEmail: true }, type: DataType.STRING, allowNull: false, unique: true })
   email: string;
-
-  @Column({ type: DataType.STRING(60), allowNull: true })
-  name: string;
-
-  @Column({ type: DataType.STRING(20), allowNull: true })
-  surname: string;
-
-  @Column({ type: DataType.STRING(60), allowNull: true })
-  nameAr: string;
-
-  @Column({ type: DataType.STRING(20), allowNull: true })
-  surnameAr: string;
-
-  @Column({ type: DataType.STRING(6), allowNull: true })
-  gender: 'Male' | 'Female';
-
-  @Column({ type: DataType.DATE, allowNull: true })
-  birthdate: Date;
 
   @Column({ type: DataType.TEXT, allowNull: false })
   password: string;
 
-  @Column({ type: DataType.STRING(15), allowNull: true, unique: true })
-  mobile: string;
+  @Column({ type: DataType.STRING, allowNull: true })
+  firstName: string;
 
-  @Column({ type: DataType.SMALLINT({ length: 1 }), allowNull: true, defaultValue: USER_TYPES_NO.Patient })
-  userType: USER_TYPES_NO;
+  @Column({ type: DataType.STRING, allowNull: true })
+  lastName: string;
+
+  @Column({ type: DataType.STRING(15), allowNull: true, unique: true })
+  mobileNumber: string;
+
+  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
+  isEmailVerified: boolean;
 
   @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
   isMobileVerified: boolean;
 
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: true })
-  isLoggedOut: boolean;
-
   @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
   isSuspend: boolean;
-
-  @Column({ type: DataType.ENUM('en', 'ar'), allowNull: true })
-  locale: 'en' | 'ar';
 
   @Column({ type: DataType.DATE, allowNull: true })
   lastLoginDate: Date;
@@ -78,8 +73,25 @@ export class UserModel extends Model {
   @Column({ type: DataType.DATE, allowNull: true })
   lastLogOutDate: Date;
 
- /* @HasMany(() => FcmNotification)
-  notifications: FcmNotification[];*/
+  @Column({ type: DataType.TEXT, allowNull: true })
+  avatar: string;
+
+  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: true })
+  isNew: boolean;
+
+  @Column({ type: DataType.ENUM({ values: Object.keys(LANG) }), allowNull: true, defaultValue: LANG.AR })
+  lang: LANG;
+  /**
+   * Relations
+   */
+  @HasMany(() => FcmNotification)
+  notifications: FcmNotification[];
+
+  @BelongsTo(() => Role, { foreignKey: 'roleId' })
+  role: Role;
+  @ForeignKey(() => Role)
+  @Column({ type: DataType.STRING(36) })
+  roleId: string;
 
   /**
    * @description Hooks
@@ -87,11 +99,23 @@ export class UserModel extends Model {
    * @param options
    */
   @BeforeCreate
-  public static async hashPassword(user: UserEntity, options: any) {
+  public static async hashPassword(user: User, options: any) {
     if (!options.transaction) {
       throw new Error('Missing transaction.');
     }
     const salt = genSaltSync(12);
     user.password = hashSync(user.password, salt);
+    if (!user.roleId) {
+      const role = await Role.findOne<Role>({ where: { name: 'Patient' } });
+      user.roleId = role?.id;
+    }
+  }
+
+  @AfterSave
+  @AfterCreate
+  static removePassword(user: any) {
+    if (user.length === undefined) user.password = undefined;
+    else user.forEach((_user: User) => (_user.password = undefined));
+    return user;
   }
 }

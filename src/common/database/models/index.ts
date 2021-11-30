@@ -1,4 +1,4 @@
-import { UserModel } from '../../../user/models/user.model';
 import { FcmNotification } from '../../../firebase/models/fcm-notifications.model';
+import { User } from '../../../user/models/user.model';
 
-export { UserModel, FcmNotification };
+export { User, FcmNotification };
