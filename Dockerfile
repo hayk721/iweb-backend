@@ -1,21 +1,21 @@
-FROM node:14.17-buster-slim As development
+FROM node:14.18-alpine As development
 
 WORKDIR /iweb-backend
 
 COPY package*.json ./
 
+RUN npm i -g rimraf
+RUN npm i -g @nestjs/cli
 RUN npm install --only=development
-
 COPY . .
-
 RUN npm run build
 
-FROM node:14.17-buster-slim as production
+FROM node:14.18-alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /udh_epayments
+WORKDIR /iweb-backend
 
 COPY package*.json ./
 

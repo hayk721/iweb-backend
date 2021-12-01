@@ -8,7 +8,6 @@ services:
       target: development
     volumes:
       - .:/iweb-backend
-      - /iweb-backend/node_modules
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     command: npm run dev
@@ -17,12 +16,12 @@ services:
     networks:
       - iwebnet
     depends_on:
-      - mysql
+      - mariadb
       - redis
     environment:
       DB_HOST: iwap-mariadb
       REDIS_HOST: iwap-redis
-  mysql:
+  mariadb:
     container_name: iwap-mariadb
     image: mariadb:10.3.31
     networks:

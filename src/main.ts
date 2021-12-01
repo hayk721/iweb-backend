@@ -44,6 +44,6 @@ async function bootstrap() {
   app.useGlobalFilters(new ValidationExceptionFilter());
   app.enableCors();
 
-  await app.listen(process.env.SERVER_PORT);
+  await app.listen(process.env.SERVER_PORT, '0.0.0.0');
 }
 bootstrap();
