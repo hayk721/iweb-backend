@@ -22,8 +22,8 @@ export class CreateResetPasswordDto {
 
 export class ResetPasswordDto {
   @IsString()
-  @MinLength(36)
-  @MaxLength(36)
+  // @MinLength(36)
+  // @MaxLength(36)
   token: string;
 
   @IsString()
@@ -63,7 +63,6 @@ export class ChangeCurrentUserPasswordDto {
 }
 
 export class CreateUserDto {
-
   @IsNotEmpty({ message: 'Email is required' })
   @IsEmail({}, { message: 'Invalid Email' })
   email: string;
@@ -74,12 +73,19 @@ export class CreateUserDto {
   @MaxLength(20)
   password: string;
 
-  @IsNotEmpty({ message: 'PasswordConfirm is required' })
-  @IsString()
-  @Match('password', { message: 'must match the password' })
-  passwordConfirm: string;
-
   @IsOptional()
   @IsUUID('4')
   roleId: string;
+
+  @IsOptional()
+  @IsString()
+  display_name: string;
+
+  @IsOptional()
+  @IsString()
+  phone: string;
+
+  @IsOptional()
+  @IsString()
+  avatar: string;
 }

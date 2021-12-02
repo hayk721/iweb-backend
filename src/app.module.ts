@@ -12,6 +12,8 @@ import { UserModule } from './user/user.module';
 import { DATABASE_CONFIG } from '@common/database/config/database.provider';
 import { ConfigModule } from '@nestjs/config';
 import { FirebaseModule } from './firebase/fitrebase.module';
+import {JwtAuthGuard} from "./common/guards/jwt-auth.guard";
+import {RolesGuard} from "./common/guards/role.guard";
 
 @Module({
   imports: [
@@ -35,6 +37,16 @@ import { FirebaseModule } from './firebase/fitrebase.module';
     TasksModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'APP_GUARD',
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: 'ROLE_GUARD',
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

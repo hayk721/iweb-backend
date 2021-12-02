@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-
+// import { CurrentUser } from '@currentUser';
 @Controller()
 export class AppController {
   constructor(private readonly _appService: AppService) {}

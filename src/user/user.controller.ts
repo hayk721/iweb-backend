@@ -1,12 +1,11 @@
 import { CurrentUser } from '@common/decorators/current-user.decorator';
-import { Controller, Get, UseGuards, HttpException, HttpStatus, Post, Body, Param, Put, Delete, Patch, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Post, Body, Param, Put, Delete, Patch, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MessageCodeError } from '@common/errors/message-code-error';
 import { ApiTags, ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import { UserManagementService } from './user-managment/user-management.service';
-import { ChangeUserPasswordDto, ChangeUserRoleDto, ChangeUserSuspendDto, EditUserDto } from './user-managment/user-management.dto';
-import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
-import { ChangePasswordDto, CreateUserDto } from "../auth/auth.dto";
+import { ChangeUserPasswordDto, ChangeUserRoleDto, EditUserDto } from './user-managment/user-management.dto';
+import { ChangePasswordDto, CreateUserDto } from '../auth/auth.dto';
 import { User } from './models/user.model';
 import { FastifyFileInterceptor } from '@common/interceptors/fastify-file.interceptor';
 import { imageFileFilter } from '@utils/utils';
@@ -83,7 +82,7 @@ export class UserController {
    * changePassword
    */
   @Put('change-password')
-  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('jwt-token')
   public async changePassword(@CurrentUser() user: User, @Body() changePasswordRequest: ChangePasswordDto) {
     if (!user) {
       throw new MessageCodeError('auth:logout:notLoggedIn');
@@ -101,14 +100,6 @@ export class UserController {
   @Patch('change-role')
   async changeRole(@Body() changeUserRoleDto: ChangeUserRoleDto) {
     return await this._user.changeUserRole(changeUserRoleDto);
-  }
-
-  /**
-   * @description Change User Suspend
-   */
-  @Patch('change-suspend')
-  async changeSuspend(@Body() changeUserSuspendDto: ChangeUserSuspendDto) {
-    return await this._user.changeUserSuspend(changeUserSuspendDto);
   }
 
   @Put('/change-password/:id')

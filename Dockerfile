@@ -5,6 +5,7 @@ WORKDIR /iweb-backend
 COPY package*.json ./
 
 RUN npm i -g rimraf
+RUN npm i -g @nestjs/cli
 RUN npm install --only=development
 COPY . .
 RUN npm run build

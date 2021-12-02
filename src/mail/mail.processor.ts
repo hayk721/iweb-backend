@@ -41,7 +41,7 @@ export class MailProcessor {
         subject: 'Password reset',
         template: './password-reset', // `.hbs` extension is appended automatically
         context: {
-          name: user.firstName + ' ' + user.lastName,
+          name: user.display_name,
           url,
         },
       });
@@ -58,8 +58,6 @@ export class MailProcessor {
    */
   @Process('email-verify')
   async sendVerifyEmail(job: Job<{ user: User; token: string }>): Promise<void> {
-    console.log(`Sending email verify email to '${job.data.user.email}'`);
-
     const { user, token } = job.data;
 
     const url = this._frontUrl('email-verify', token);
@@ -67,10 +65,10 @@ export class MailProcessor {
     try {
       await this._mailerService.sendMail({
         to: user.email,
-        subject: 'Password reset',
-        template: './password-reset', // `.hbs` extension is appended automatically
+        subject: 'Email Verify',
+        template: './email-verify', // `.hbs` extension is appended automatically
         context: {
-          name: user.firstName + ' ' + user.lastName,
+          name: user.display_name,
           url,
         },
       });
@@ -88,6 +86,6 @@ export class MailProcessor {
    * @return string
    */
   private _frontUrl(path: string, token: string) {
-    return `${this._configService.get('FRONT_URL')}/${path}/${token}`;
+    return `http://${this._configService.get('HOST')}/${path}/${token}`;
   }
 }

@@ -57,7 +57,7 @@ export class AuthService {
    */
   public async login(user: User): Promise<IAuthResponse> {
     if (!user) throw new NotFoundException('User not Found');
-    if (user.isSuspend) throw new MessageCodeError('auth:userAccountIsSuspended');
+    // if (user.isSuspend) throw new MessageCodeError('auth:userAccountIsSuspended');
     const jwtPayload: IJwtPayload = {
       id: user.id,
       email: user.email,

@@ -5,7 +5,7 @@ import { MessageCodeError } from '@common/errors/message-code-error';
 import { CurrentUser } from '@currentUser';
 import { MailService } from '../mail/mail.service';
 import { IsPublic } from '@common/decorators/is-public.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, CreateUserDto, ResetPasswordDto } from './auth.dto';
 import { User } from '../user/models/user.model';
@@ -46,6 +46,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiBearerAuth('jwt-token')
   public async logOut(@CurrentUser() user: User) {
     if (!user) {
       throw new MessageCodeError('auth:logout:notLoggedIn');
@@ -65,6 +66,7 @@ export class AuthController {
    * changePassword
    */
   @Put('password')
+  @ApiBearerAuth('jwt-token')
   public async changePassword(@CurrentUser() user: User, @Body() changePasswordRequest: ChangeCurrentUserPasswordDto) {
     return await this._auth.changePassword(user.id, changePasswordRequest);
   }

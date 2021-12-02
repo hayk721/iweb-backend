@@ -6,7 +6,6 @@ module.exports = {
     try {
       await queryInterface.changeColumn('user', 'id', {
         type: Sequelize.STRING('36'),
-
       })
       await queryInterface.createTable(
         'fcm_notifications',
@@ -41,7 +40,7 @@ module.exports = {
     }
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     const t = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable('fcm_notifications');
