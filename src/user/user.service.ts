@@ -29,7 +29,7 @@ export class UserService {
       return user;
     } catch (e) {
       await transaction.rollback();
-      console.error(e.message, e.name );
+      throw e;
     }
   }
 

@@ -7,7 +7,7 @@ import { User } from '../user/models/user.model';
 @Injectable()
 export class MailService {
   constructor(
-    private configService: ConfigService,
+    private readonly configService: ConfigService,
     @InjectQueue('mail-queue')
     private readonly _mailQueue: Queue,
   ) {}

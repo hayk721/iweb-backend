@@ -1,7 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthService } from '../../auth/auth.service';
-import { IJwtPayload } from '@interfaces/auth/IJwtPayload';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -11,11 +10,10 @@ export class RolesGuard implements CanActivate {
     if (isPublic) return true;
 
     const roles = this._reflector.getAllAndOverride<string[]>('roles', [context.getHandler(), context.getClass()]);
-
     const { headers } = context.switchToHttp().getRequest();
-    if (!headers['jwt-token']) return false;
+    if (!headers['authorization']) return false;
 
-    const payload: IJwtPayload = await this._auth.decodeToken(headers['jwt-token']);
+    const payload: any = await this._auth.decodeToken(headers['authorization']);
     const hasRole: boolean = !roles || roles?.includes(payload.role);
     return !(!payload || !hasRole);
   }

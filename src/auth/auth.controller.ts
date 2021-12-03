@@ -13,16 +13,9 @@ import { Roles } from '@userRoles';
 
 @ApiTags('auth')
 @Controller('auth')
+@ApiBearerAuth()
 export class AuthController {
   constructor(private readonly _auth: AuthService, private readonly _user: UserService, private readonly _mail: MailService) {}
-  /**
-   * Create New User => required Many related Works
-   */
-  @IsPublic()
-  @Post('register')
-  async createNewUser(@Body() user: CreateUserDto): Promise<IAuthResponse> {
-    return (await this._auth.createNewUser(user)) as IAuthResponse;
-  }
 
   /**
    * @description Log in
@@ -56,7 +49,7 @@ export class AuthController {
   /**
    * change given user Password
    */
-
+  @IsPublic()
   @Put('user/password')
   @Roles('Admin')
   public async changePasswordByUserId(@Body() changePasswordRequest: ChangePasswordDto) {
@@ -66,7 +59,6 @@ export class AuthController {
    * changePassword
    */
   @Put('password')
-  @ApiBearerAuth('jwt-token')
   public async changePassword(@CurrentUser() user: User, @Body() changePasswordRequest: ChangeCurrentUserPasswordDto) {
     return await this._auth.changePassword(user.id, changePasswordRequest);
   }

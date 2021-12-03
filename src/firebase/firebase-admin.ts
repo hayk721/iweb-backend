@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import * as Admin from 'firebase-admin';
 import { Bucket } from '@google-cloud/storage';
-import serviceAccount from './config/service_account.json';
 import { messaging } from 'firebase-admin/lib/messaging';
 import { InjectModel } from '@nestjs/sequelize';
 import { FcmNotification } from './models/fcm-notifications.model';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class FirebaseAdmin {
   app: any;
   bucket: Bucket;
-  constructor(@InjectModel(FcmNotification) private readonly _fcmNotification: typeof FcmNotification) {
+  constructor(private readonly _configService: ConfigService, @InjectModel(FcmNotification) private readonly _fcmNotification: typeof FcmNotification) {
     this.app = Admin.initializeApp({
-      credential: Admin.credential.cert(serviceAccount),
-      storageBucket: process.env.FIREBASE_STORAGE_BUCKET || 'giftstore-c2cb2.appspot.com',
+      credential: Admin.credential.cert(this._configService.get('firebase-admin')),
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
     });
 
     this.bucket = Admin.storage().bucket();

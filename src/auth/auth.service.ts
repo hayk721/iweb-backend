@@ -1,6 +1,5 @@
 import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { MessageCodeError } from '@common/errors/message-code-error';
 import { IJwtPayload } from '@interfaces/auth/IJwtPayload';
 import { IAuthResponse } from '@interfaces/auth/IAuthResponse';
 import { compareSync } from 'bcrypt';
@@ -12,9 +11,9 @@ import { IPasswordReset } from '@interfaces/auth/IPasswordReset';
 import { Transaction } from 'sequelize';
 import { MailService } from '../mail/mail.service';
 import { UserService } from '../user/user.service';
-import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, CreateUserDto, ResetPasswordDto } from './auth.dto';
+import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, ResetPasswordDto } from './auth.dto';
 import { User } from '../user/models/user.model';
-import { USER_TYPES } from '@enums/user-types';
+import { ROLES } from '@enums/user-types';
 import { PasswordReset } from './models/password-reset.model';
 import { EmailVerification } from './models/email-verifications.model';
 
@@ -29,16 +28,7 @@ export class AuthService {
     private readonly _mail: MailService,
   ) {}
 
-  /**
-   * @description Create New User
-   * @param user
-   */
-  public async createNewUser(user: CreateUserDto): Promise<IAuthResponse | User> {
-    if (await this._usersService.getUserByEmail(user.email)) {
-      throw new ConflictException('User Already Exists');
-    }
-    return await this._usersService.createNewUser(user);
-  }
+
   /**
    * @description Main Auth Service & Return access_token
    * @param loginInfo
@@ -61,7 +51,7 @@ export class AuthService {
     const jwtPayload: IJwtPayload = {
       id: user.id,
       email: user.email,
-      role: user.role?.name || USER_TYPES[USER_TYPES.Patient],
+      role: user.role?.name || ROLES[ROLES.SALES],
       iat: new Date().getTime() / 1000,
     };
 
@@ -89,7 +79,7 @@ export class AuthService {
     return await this._usersService.changePassword(user, changePasswordRequest.password);
   }
 
-  public async decodeToken(token: string): Promise<IJwtPayload | null> {
+  public decodeToken(token: string): IJwtPayload | null {
     try {
       let _token;
       if (token) {

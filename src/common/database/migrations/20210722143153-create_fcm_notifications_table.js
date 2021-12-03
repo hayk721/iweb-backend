@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
         'fcm_notifications',
         {
           id: {
-            type: Sequelize.STRING('36'),
+            type: Sequelize.STRING(36),
             primaryKey: true,
           },
           token: {
@@ -22,7 +23,9 @@ module.exports = {
           user_id: {
             type: Sequelize.STRING(36),
             references: {
-              model: 'user',
+              model: {
+                tableName: 'user',
+              },
               key: 'id',
             },
             onDelete: 'cascade',

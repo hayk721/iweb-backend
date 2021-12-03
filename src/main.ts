@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationPipe } from '@common/pipes/validation.pipe';
-import { ValidationExceptionFilter } from '@common/filters/validation-exception.filter';
+import { GlobalExceptionFilter } from '@common/filters/global-exception.filter';
 import fmp from 'fastify-multipart';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { fastifyHelmet } from 'fastify-helmet';
@@ -21,13 +21,7 @@ async function bootstrap() {
   });
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter);
   app.setGlobalPrefix('api/v1');
-  const config = new DocumentBuilder()
-    .setTitle('Iweb')
-    .setDescription('Iweb system')
-    .setVersion('1.0')
-    .addTag('udh')
-    .addApiKey({ type: 'apiKey' }, 'jwt-token')
-    .build();
+  const config = new DocumentBuilder().setTitle('Iweb').setDescription('Iweb system').setVersion('1.0').addTag('Iweb').addBearerAuth().build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   await app.register(fastifyHelmet, {
@@ -41,7 +35,7 @@ async function bootstrap() {
     },
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-  app.useGlobalFilters(new ValidationExceptionFilter());
+  app.useGlobalFilters(new GlobalExceptionFilter());
   app.enableCors();
 
   await app.listen(process.env.SERVER_PORT, '0.0.0.0');

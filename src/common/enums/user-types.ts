@@ -1,10 +1,10 @@
-export enum USER_TYPES {
-  Admin = 'Admin',
-  CLIENTSUPPORT = 'Cient support',
-  Patient = 'Patient',
+export enum ROLES {
+  ADMIN = 'Admin',
+  CLIENT_SUPPORT = 'ClientSupport',
+  SALES = 'Sales',
 }
-export enum USER_TYPES_NO {
-  Admin = 1,
-  CLIENTSUPPORT = 2,
-  Patient = 3,
+export enum ROLES_NO {
+  ADMIN = 1,
+  CLIENT_SUPPORT = 2,
+  SALES = 3,
 }

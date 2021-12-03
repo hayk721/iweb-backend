@@ -18,7 +18,8 @@ module.exports = {
           unique: true,
         },
         created_at: Sequelize.DATE,
-        updated_at: Sequelize.DATE,},
+        updated_at: Sequelize.DATE,
+        },
         { charset: 'utf8', collate: 'utf8_general_ci', transaction: t },
       );
       await t.commit();
