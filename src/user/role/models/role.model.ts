@@ -12,7 +12,7 @@ export class Role extends Model {
     primaryKey: true,
     defaultValue: DataType.UUIDV4,
   })
-  public id: string;
+  id: string;
 
   @Column({ type: DataType.STRING, allowNull: false })
   name: string;

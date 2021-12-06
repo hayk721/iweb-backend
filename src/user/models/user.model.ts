@@ -46,41 +46,18 @@ export class User extends Model {
   @Column({ validate: { isEmail: true }, type: DataType.STRING, allowNull: false, unique: true })
   email: string;
 
-  @Column({ type: DataType.TEXT, allowNull: false })
+  @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
   @Column({ type: DataType.STRING, allowNull: true })
-  firstName: string;
-
-  @Column({ type: DataType.STRING, allowNull: true })
-  lastName: string;
+  display_name: string;
 
   @Column({ type: DataType.STRING(15), allowNull: true, unique: true })
-  mobileNumber: string;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isEmailVerified: boolean;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isMobileVerified: boolean;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isSuspend: boolean;
-
-  @Column({ type: DataType.DATE, allowNull: true })
-  lastLoginDate: Date;
-
-  @Column({ type: DataType.DATE, allowNull: true })
-  lastLogOutDate: Date;
+  phone: string;
 
   @Column({ type: DataType.TEXT, allowNull: true })
   avatar: string;
 
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: true })
-  isNew: boolean;
-
-  @Column({ type: DataType.ENUM({ values: Object.keys(LANG) }), allowNull: true, defaultValue: LANG.AR })
-  lang: LANG;
   /**
    * Relations
    */

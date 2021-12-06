@@ -57,7 +57,7 @@ export class UserManagementService {
       return user;
     } catch (e) {
       await transaction.rollback();
-      throw new NotFoundException('Product not found' + e.message);
+      throw e;
     }
   }
 

@@ -1,16 +1,4 @@
-import {
-  IsEmail,
-  IsEnum,
-  IsObject,
-  IsOptional,
-  IsString,
-  Length,
-  IsUUID,
-  IsBoolean,
-  MinLength,
-  MaxLength,
-  IsNumber,
-} from 'class-validator';
+import { IsEmail, IsEnum, IsObject, IsOptional, IsString, Length, IsUUID, IsBoolean, MinLength, MaxLength, IsNumber } from 'class-validator';
 import { Match } from '@common/decorators/match.decorator';
 
 export class CreateUserDto {
@@ -25,24 +13,17 @@ export class CreateUserDto {
   @IsString({ message: 'Password must be string' })
   password: string;
 
-  @IsString({ message: 'First Name must be a string' })
-  @Length(3, 15, { message: 'First Name min: 3, max: 15' })
-  firstName: string;
-
-  @IsString({ message: 'Last Name must be a string' })
-  @Length(3, 15, { message: 'Last Name min: 3, max: 15' })
-  lastName: string;
-
   @IsString({ message: 'Mobile must be a string' })
   @IsOptional()
-  mobileNumber: string;
+  phone: string;
 
-  @IsBoolean()
   @IsOptional()
-  isSuspend: boolean;
+  @IsString()
+  display_name: string;
 
-  @IsNumber()
-  identityId: number;
+  @IsOptional()
+  @IsString()
+  avatar: string;
 }
 
 export class EditUserDto {
@@ -60,22 +41,16 @@ export class EditUserDto {
   password: string;
 
   @IsOptional()
-  @IsString({ message: 'First Name must be a string' })
-  @Length(3, 15, { message: 'First Name min: 3, max: 15' })
-  firstName: string;
-
-  @IsOptional()
-  @IsString({ message: 'Last Name must be a string' })
-  @Length(3, 15, { message: 'Last Name min: 3, max: 15' })
-  lastName: string;
-
-  @IsOptional()
   @IsString({ message: 'Mobile must be a string' })
-  mobileNumber: string;
+  phone: string;
 
-  @IsBoolean()
   @IsOptional()
-  isSuspend: boolean;
+  @IsString()
+  display_name: string;
+
+  @IsOptional()
+  @IsString()
+  avatar: string;
 }
 
 export class ChangePasswordDto {
@@ -95,14 +70,6 @@ export class ChangeUserRoleDto {
 
   @IsString()
   role: string;
-}
-
-export class ChangeUserSuspendDto {
-  @IsUUID()
-  userId: string;
-
-  @IsBoolean()
-  suspend: boolean;
 }
 
 export class ChangeUserPasswordDto {

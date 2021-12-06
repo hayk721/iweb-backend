@@ -12,19 +12,19 @@ import { MailProcessor } from './mail.processor';
   imports: [
     ConfigModule.forFeature(mailConfig),
     MailerModule.forRootAsync({
-      useFactory: async (config: ConfigService) => ({
+      useFactory: async () => ({
         transport: {
-          host: config.get('mail.host'),
-          port: config.get('mail.port'),
+          host: process.env.MAIL_HOST,
+          port: process.env.MAIL_PORT,
           secure: false,
-          encoding: config.get('mail.encryption'),
           auth: {
-            user: config.get('mail.user'),
-            pass: config.get('mail.password'),
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASSWORD,
           },
+          encoding: process.env.MAIL_ENCRYPTION,
         },
         defaults: {
-          from: `"No Reply" <${config.get('mail.from')}>`,
+          from: `"No Reply" <${process.env.MAIL_FROM}>`,
         },
         template: {
           dir: join(__dirname, 'templates'),

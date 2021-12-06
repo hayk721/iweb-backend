@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import { Role } from './role/models/role.model';
 import { FcmNotification } from '../firebase/models/fcm-notifications.model';
-import { ChangeUserRoleDto, ChangeUserSuspendDto } from './user-managment/user-management.dto';
+import { ChangeUserRoleDto } from './user-managment/user-management.dto';
 import { CreateUserDto } from '../auth/auth.dto';
 
 @Injectable()
@@ -54,7 +54,6 @@ export class UserService {
         {
           where: {
             id: $user.id,
-            isSuspend: false,
           },
           transaction,
         },
@@ -82,7 +81,6 @@ export class UserService {
           where: {
             id: $user.id,
             isEmailVerified: true,
-            isSuspend: false,
           },
           transaction,
         },
@@ -131,7 +129,7 @@ export class UserService {
         where: {
           email: $email,
         },
-        attributes: ['id', 'email', 'password', 'isEmailVerified', 'isSuspend', 'isNew'],
+        attributes: ['id', 'email', 'password', 'display_name', 'avatar', 'phone'],
         include: [{ model: Role, attributes: ['name'] }],
       });
     } catch (err) {
@@ -179,7 +177,7 @@ export class UserService {
   public async getUserById($id: string, withModels: string[] = []): Promise<User> {
     return await User.findByPk<User>($id, {
       include: withModels,
-      attributes: ['id', 'email', 'isEmailVerified', 'isMobileVerified', 'createdAt', 'isNew', 'profilePic', 'mobileNumber', 'identityId', 'lang'],
+      attributes: ['id', 'email', 'password', 'display_name', 'avatar', 'phone'],
     });
   }
 
@@ -266,24 +264,6 @@ export class UserService {
     }
   }
 
-  async changeUserSuspend(changeUserSuspendDto: ChangeUserSuspendDto) {
-    try {
-      return await this._user.update(
-        {
-          isSuspend: changeUserSuspendDto.suspend,
-        },
-        {
-          where: {
-            id: changeUserSuspendDto.userId,
-          },
-        },
-      );
-    } catch (err) {
-      console.log(err);
-      return;
-    }
-  }
-
   async changeUserPassword(id: string, password: string) {
     const salt = genSaltSync(12);
     const hashedPassword = hashSync(password, salt);
@@ -294,7 +274,6 @@ export class UserService {
       {
         where: {
           id,
-          isSuspend: false,
         },
       },
     );

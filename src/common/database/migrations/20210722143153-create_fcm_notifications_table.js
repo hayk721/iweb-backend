@@ -1,3 +1,4 @@
+
 'use strict';
 
 module.exports = {
@@ -6,13 +7,12 @@ module.exports = {
     try {
       await queryInterface.changeColumn('user', 'id', {
         type: Sequelize.STRING('36'),
-
       })
       await queryInterface.createTable(
         'fcm_notifications',
         {
           id: {
-            type: Sequelize.STRING('36'),
+            type: Sequelize.STRING(36),
             primaryKey: true,
           },
           token: {
@@ -23,7 +23,9 @@ module.exports = {
           user_id: {
             type: Sequelize.STRING(36),
             references: {
-              model: 'user',
+              model: {
+                tableName: 'user',
+              },
               key: 'id',
             },
             onDelete: 'cascade',
@@ -41,7 +43,7 @@ module.exports = {
     }
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     const t = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable('fcm_notifications');

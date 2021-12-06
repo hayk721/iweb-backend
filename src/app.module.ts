@@ -8,10 +8,12 @@ import { TasksModule } from './task/task.module';
 import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import { I18nObjectParser } from '@common/i18n/parser/i18nObjectParser';
 import { BullModule } from '@nestjs/bull';
-import { UserModule } from './user/user.module';
 import { DATABASE_CONFIG } from '@common/database/config/database.provider';
 import { ConfigModule } from '@nestjs/config';
-import { FirebaseModule } from './firebase/fitrebase.module';
+import { JwtAuthGuard } from '@common/guards/jwt-auth.guard';
+import { RolesGuard } from '@common/guards/role.guard';
+import { APP_GUARD } from '@nestjs/core';
+import { RoleModule } from './user/role/role.module';
 
 @Module({
   imports: [
@@ -33,8 +35,19 @@ import { FirebaseModule } from './firebase/fitrebase.module';
     }),
     AuthModule,
     TasksModule,
+    RoleModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

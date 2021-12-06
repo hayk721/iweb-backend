@@ -5,7 +5,7 @@ import { MessageCodeError } from '@common/errors/message-code-error';
 import { CurrentUser } from '@currentUser';
 import { MailService } from '../mail/mail.service';
 import { IsPublic } from '@common/decorators/is-public.decorator';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
 import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, CreateUserDto, ResetPasswordDto } from './auth.dto';
 import { User } from '../user/models/user.model';
@@ -13,16 +13,9 @@ import { Roles } from '@userRoles';
 
 @ApiTags('auth')
 @Controller('auth')
+@ApiBearerAuth()
 export class AuthController {
   constructor(private readonly _auth: AuthService, private readonly _user: UserService, private readonly _mail: MailService) {}
-  /**
-   * Create New User => required Many related Works
-   */
-  @IsPublic()
-  @Post('register')
-  async createNewUser(@Body() user: CreateUserDto): Promise<IAuthResponse> {
-    return (await this._auth.createNewUser(user)) as IAuthResponse;
-  }
 
   /**
    * @description Log in
@@ -46,6 +39,7 @@ export class AuthController {
   }
 
   @Post('logout')
+  @ApiBearerAuth('jwt-token')
   public async logOut(@CurrentUser() user: User) {
     if (!user) {
       throw new MessageCodeError('auth:logout:notLoggedIn');
@@ -55,7 +49,7 @@ export class AuthController {
   /**
    * change given user Password
    */
-
+  @IsPublic()
   @Put('user/password')
   @Roles('Admin')
   public async changePasswordByUserId(@Body() changePasswordRequest: ChangePasswordDto) {

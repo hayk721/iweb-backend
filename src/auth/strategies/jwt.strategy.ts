@@ -18,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: IJwtPayload, done: VerifiedCallback) {
     const user: User = await this._authService.validateUser(payload);
 
-    if (!user || user.isSuspend) {
+    if (!user) {
       return done(new HttpException({ message: 'In Valid Token' }, HttpStatus.UNAUTHORIZED), false);
     }
 
