@@ -3,6 +3,7 @@ import {
   AfterSave,
   BeforeCreate,
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   DefaultScope,
@@ -15,9 +16,10 @@ import {
 } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
 import { genSaltSync, hashSync } from 'bcrypt';
-import { LANG } from '@enums/user-lang.enum';
 import { Role } from '../role/models/role.model';
 import { FcmNotification } from '../../firebase/models/fcm-notifications.model';
+import { Subscription } from "../../chat-api/models/subscription.model";
+import { UsersSubscriptions } from "../../chat-api/models/users-subscriptions-pivot.model";
 
 /**
  *
@@ -70,6 +72,8 @@ export class User extends Model {
   @Column({ type: DataType.STRING(36) })
   roleId: string;
 
+  @BelongsToMany(() => Subscription, () => UsersSubscriptions)
+  subscriptions: Subscription[];
   /**
    * @description Hooks
    * @param user

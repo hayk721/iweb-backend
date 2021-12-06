@@ -8,8 +8,7 @@ import { User } from './models/user.model';
 import { Role } from './role/models/role.model';
 import { FcmNotification } from '../firebase/models/fcm-notifications.model';
 import { ChangeUserRoleDto } from './user-managment/user-management.dto';
-import { CreateUserDto } from '../auth/auth.dto';
-
+import { Subscription } from '../chat-api/models/subscription.model';
 @Injectable()
 export class UserService {
   constructor(
@@ -17,25 +16,6 @@ export class UserService {
     @InjectModel(User)
     private readonly _user: typeof User,
   ) {}
-
-  /**
-   * @description Create New User
-   */
-  public async createNewUser($user: CreateUserDto): Promise<User> {
-    const transaction = await this._sequelize.transaction();
-    try {
-      const user = await this._user.create<User>($user, { transaction });
-      await transaction.commit();
-      return user;
-    } catch (e) {
-      await transaction.rollback();
-      throw e;
-    }
-  }
-
-  public async changeProfilePic(url: string, id: string) {
-    await this._user.update<User>({ profilePic: url }, { where: { id: id } });
-  }
 
   /**
    * @description Update User Password
@@ -130,7 +110,7 @@ export class UserService {
           email: $email,
         },
         attributes: ['id', 'email', 'password', 'display_name', 'avatar', 'phone'],
-        include: [{ model: Role, attributes: ['name'] }],
+        include: [{ model: Role, attributes: ['name'] }, { model: Subscription }],
       });
     } catch (err) {
       console.log(err);
