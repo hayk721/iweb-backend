@@ -1,5 +1,6 @@
 import { Chats, Class1InstanceApi, Class2MessagesApi, Class3ChatsApi, Configuration, ConfigurationParameters, Messages, Settings } from './sdk';
 import { Injectable } from '@nestjs/common';
+import { AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class ChatApi {
@@ -26,5 +27,14 @@ export class ChatApi {
       console.error(e.message);
       return null;
     }
+  }
+  async message(): Promise<Class2MessagesApi> {
+    return this._message;
+  }
+  async instance(): Promise<Class1InstanceApi> {
+    return this._instance;
+  }
+  async chat(): Promise<Class3ChatsApi> {
+    return this._chat;
   }
 }
