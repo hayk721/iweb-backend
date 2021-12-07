@@ -22,7 +22,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
- * 
+ *
  * @export
  * @interface Ack
  */
@@ -63,19 +63,19 @@ export enum AckStatusEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface BanSettings
  */
 export interface BanSettings {
     /**
-     * 
+     *
      * @type {string}
      * @memberof BanSettings
      */
     'banPhoneMask': string | null;
     /**
-     * 
+     *
      * @type {string}
      * @memberof BanSettings
      */
@@ -88,7 +88,7 @@ export interface BanSettings {
     'set': boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface BanTestAction
  */
@@ -101,19 +101,19 @@ export interface BanTestAction {
     'phone': string;
 }
 /**
- * 
+ *
  * @export
  * @interface BanTestStatus
  */
 export interface BanTestStatus {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof BanTestStatus
      */
     'banned'?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof BanTestStatus
      */
@@ -132,7 +132,7 @@ export interface BanTestStatus {
     'banPhoneMask'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface Chat
  */
@@ -163,7 +163,7 @@ export interface Chat {
     'metadata'?: object;
 }
 /**
- * 
+ *
  * @export
  * @interface ChatIdProp
  */
@@ -176,39 +176,39 @@ export interface ChatIdProp {
     'chatId'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface ChatUpdate
  */
 export interface ChatUpdate {
     /**
-     * 
+     *
      * @type {Chat}
      * @memberof ChatUpdate
      */
     'old'?: Chat;
     /**
-     * 
+     *
      * @type {Chat}
      * @memberof ChatUpdate
      */
     'new'?: Chat;
 }
 /**
- * 
+ *
  * @export
  * @interface Chats
  */
 export interface Chats {
     /**
-     * 
+     *
      * @type {Array<Chat>}
      * @memberof Chats
      */
     'dialogs'?: Array<Chat>;
 }
 /**
- * 
+ *
  * @export
  * @interface ClearActionsQueueStatus
  */
@@ -227,7 +227,7 @@ export interface ClearActionsQueueStatus {
     'actionsExample'?: Array<string>;
 }
 /**
- * 
+ *
  * @export
  * @interface ClearMessagesQueueStatus
  */
@@ -246,7 +246,7 @@ export interface ClearMessagesQueueStatus {
     'messageTextsExample'?: Array<string>;
 }
 /**
- * 
+ *
  * @export
  * @interface CreateGroupAction
  */
@@ -258,7 +258,7 @@ export interface CreateGroupAction {
      */
     'groupName': string;
     /**
-     * **Required if phones is not set**  An array of new participients chatIds. 
+     * **Required if phones is not set**  An array of new participients chatIds.
      * @type {Array<string>}
      * @memberof CreateGroupAction
      */
@@ -277,13 +277,13 @@ export interface CreateGroupAction {
     'messageText'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface CreateGroupStatus
  */
 export interface CreateGroupStatus {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof CreateGroupStatus
      */
@@ -308,7 +308,7 @@ export interface CreateGroupStatus {
     'groupInviteLink'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface ForwardMessageRequest
  */
@@ -333,7 +333,7 @@ export interface ForwardMessageRequest {
     'messageId': string;
 }
 /**
- * 
+ *
  * @export
  * @interface GroupParticipantAction
  */
@@ -358,13 +358,13 @@ export interface GroupParticipantAction {
     'participantPhone'?: number;
 }
 /**
- * 
+ *
  * @export
  * @interface GroupParticipantStatus
  */
 export interface GroupParticipantStatus {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof GroupParticipantStatus
      */
@@ -376,14 +376,14 @@ export interface GroupParticipantStatus {
      */
     'message'?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof GroupParticipantStatus
      */
     'groupId'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface InlineResponse200
  */
@@ -405,7 +405,7 @@ export enum InlineResponse200AccountStatusEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InlineResponse2001
  */
@@ -428,7 +428,7 @@ export enum InlineResponse2001AccountStatusEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InlineResponse2002
  */
@@ -451,7 +451,7 @@ export enum InlineResponse2002AccountStatusEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InlineResponse2003
  */
@@ -474,92 +474,92 @@ export enum InlineResponse2003AccountStatusEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InlineResponse2004
  */
 export interface InlineResponse2004 {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2004
      */
     'success'?: boolean;
 }
 /**
- * 
+ *
  * @export
  * @interface InlineResponse2005
  */
 export interface InlineResponse2005 {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InlineResponse2005
      */
     'webhookUrl'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'ackNotificationsOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'chatUpdateOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'videoUploadOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InlineResponse2005
      */
     'proxy'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'guaranteedHooks'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'ignoreOldMessages'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'processArchive'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'instanceStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'webhookStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005
      */
     'statusNotificationsOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {InlineResponse2005Update}
      * @memberof InlineResponse2005
      */
@@ -572,87 +572,87 @@ export interface InlineResponse2005 {
  */
 export interface InlineResponse2005Update {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InlineResponse2005Update
      */
     'webhookUrl'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'ackNotificationsOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'chatUpdateOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'videoUploadOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InlineResponse2005Update
      */
     'proxy'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'guaranteedHooks'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'ignoreOldMessages'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'processArchive'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'instanceStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'webhookStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InlineResponse2005Update
      */
     'statusNotificationsOn'?: boolean | null;
 }
 /**
- * 
+ *
  * @export
  * @interface InlineResponse401
  */
 export interface InlineResponse401 {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InlineResponse401
      */
     'error'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface InstanceStatus
  */
@@ -670,7 +670,7 @@ export interface InstanceStatus {
      */
     'qrCode'?: string;
     /**
-     * 
+     *
      * @type {InstanceStatusStatusData}
      * @memberof InstanceStatus
      */
@@ -770,7 +770,7 @@ export interface InstanceStatusStatusData {
      */
     'submsg'?: string;
     /**
-     * 
+     *
      * @type {InstanceStatusStatusDataActions}
      * @memberof InstanceStatusStatusData
      */
@@ -819,38 +819,38 @@ export enum InstanceStatusStatusDataReasonEnum {
  */
 export interface InstanceStatusStatusDataActions {
     /**
-     * 
+     *
      * @type {InstanceStatusAction}
      * @memberof InstanceStatusStatusDataActions
      */
     'expiry'?: InstanceStatusAction;
     /**
-     * 
+     *
      * @type {InstanceStatusAction}
      * @memberof InstanceStatusStatusDataActions
      */
     'retry'?: InstanceStatusAction;
     /**
-     * 
+     *
      * @type {InstanceStatusAction}
      * @memberof InstanceStatusStatusDataActions
      */
     'logout'?: InstanceStatusAction;
     /**
-     * 
+     *
      * @type {InstanceStatusAction}
      * @memberof InstanceStatusStatusDataActions
      */
     'takeover'?: InstanceStatusAction;
     /**
-     * 
+     *
      * @type {InstanceStatusLink}
      * @memberof InstanceStatusStatusDataActions
      */
     'learn_more'?: InstanceStatusLink;
 }
 /**
- * 
+ *
  * @export
  * @interface Message
  */
@@ -927,13 +927,13 @@ export enum MessageTypeEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface Messages
  */
 export interface Messages {
     /**
-     * 
+     *
      * @type {Array<Message>}
      * @memberof Messages
      */
@@ -946,7 +946,7 @@ export interface Messages {
     'lastMessageNumber'?: number;
 }
 /**
- * 
+ *
  * @export
  * @interface OutboundAction
  */
@@ -991,7 +991,7 @@ export enum OutboundActionTypeEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface OutboundActions
  */
@@ -1003,14 +1003,14 @@ export interface OutboundActions {
      */
     'totalActions'?: number;
     /**
-     * 
+     *
      * @type {Array<OutboundAction>}
      * @memberof OutboundActions
      */
     'first100'?: Array<OutboundAction>;
 }
 /**
- * 
+ *
  * @export
  * @interface OutboundMessage
  */
@@ -1063,7 +1063,7 @@ export enum OutboundMessageTypeEnum {
 }
 
 /**
- * 
+ *
  * @export
  * @interface OutboundMessages
  */
@@ -1075,14 +1075,14 @@ export interface OutboundMessages {
      */
     'totalMessages'?: number;
     /**
-     * 
+     *
      * @type {Array<OutboundMessage>}
      * @memberof OutboundMessages
      */
     'first100'?: Array<OutboundMessage>;
 }
 /**
- * 
+ *
  * @export
  * @interface PhoneProp
  */
@@ -1095,7 +1095,7 @@ export interface PhoneProp {
     'phone'?: number;
 }
 /**
- * 
+ *
  * @export
  * @interface ReadChatAction
  */
@@ -1114,13 +1114,13 @@ export interface ReadChatAction {
     'phone'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface ReadChatStatus
  */
 export interface ReadChatStatus {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof ReadChatStatus
      */
@@ -1132,14 +1132,14 @@ export interface ReadChatStatus {
      */
     'message'?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ReadChatStatus
      */
     'chatId'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendContactRequest
  */
@@ -1164,7 +1164,7 @@ export interface SendContactRequest {
     'contactId': string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendFileRequest
  */
@@ -1201,7 +1201,7 @@ export interface SendFileRequest {
     'caption'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendLinkRequest
  */
@@ -1244,7 +1244,7 @@ export interface SendLinkRequest {
     'description'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendLocationRequest
  */
@@ -1281,7 +1281,7 @@ export interface SendLocationRequest {
     'address': string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendMessageRequest
  */
@@ -1306,13 +1306,13 @@ export interface SendMessageRequest {
     'body': string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendMessageStatus
  */
 export interface SendMessageStatus {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof SendMessageStatus
      */
@@ -1331,7 +1331,7 @@ export interface SendMessageStatus {
     'message'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendPTTRequest
  */
@@ -1356,7 +1356,7 @@ export interface SendPTTRequest {
     'audio': string;
 }
 /**
- * 
+ *
  * @export
  * @interface SendVCardRequest
  */
@@ -1381,7 +1381,7 @@ export interface SendVCardRequest {
     'vcard': string;
 }
 /**
- * 
+ *
  * @export
  * @interface SetWebhookStatus
  */
@@ -1393,87 +1393,87 @@ export interface SetWebhookStatus {
      */
     'set'?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof SetWebhookStatus
      */
     'message'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface Settings
  */
 export interface Settings {
     /**
-     * 
+     *
      * @type {string}
      * @memberof Settings
      */
     'webhookUrl'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'ackNotificationsOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'chatUpdateOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'videoUploadOn'?: boolean | null;
     /**
-     * 
+     *
      * @type {string}
      * @memberof Settings
      */
     'proxy'?: string | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'guaranteedHooks'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'ignoreOldMessages'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'processArchive'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'instanceStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'webhookStatuses'?: boolean | null;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof Settings
      */
     'statusNotificationsOn'?: boolean | null;
 }
 /**
- * 
+ *
  * @export
  * @interface Status
  */
@@ -1492,20 +1492,20 @@ export interface Status {
     'status'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface Statuses
  */
 export interface Statuses {
     /**
-     * 
+     *
      * @type {Array<Status>}
      * @memberof Statuses
      */
     'data'?: Array<Status>;
 }
 /**
- * 
+ *
  * @export
  * @interface WebhookStatus
  */
@@ -1530,7 +1530,7 @@ export interface WebhookStatus {
     'status'?: string;
 }
 /**
- * 
+ *
  * @export
  * @interface WebhookUrl
  */
@@ -1550,7 +1550,7 @@ export interface WebhookUrl {
 export const Class1InstanceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         *
          * @summary Updates the QR code after its expired
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1575,7 +1575,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1586,7 +1586,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * 
+         *
          * @summary Direct link to QR-code in the form of an image, not base64.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1611,7 +1611,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1647,7 +1647,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1693,7 +1693,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1704,7 +1704,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * 
+         *
          * @summary Logout from WhatsApp Web to get new QR code.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1729,7 +1729,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1740,7 +1740,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * 
+         *
          * @summary Reboot your whatsapp instance.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1765,7 +1765,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1776,7 +1776,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * 
+         *
          * @summary Repeat the manual synchronization attempt with the device
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1801,7 +1801,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1814,7 +1814,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
         /**
          * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
          * @summary Set settings
-         * @param {Settings} settings 
+         * @param {Settings} settings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1840,7 +1840,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -1854,7 +1854,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * 
+         *
          * @summary Returns the active session if the device has connected another instance of Web WhatsApp
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1879,7 +1879,7 @@ export const Class1InstanceApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1900,7 +1900,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = Class1InstanceApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         *
          * @summary Updates the QR code after its expired
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1910,7 +1910,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Direct link to QR-code in the form of an image, not base64.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1942,7 +1942,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Logout from WhatsApp Web to get new QR code.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1952,7 +1952,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Reboot your whatsapp instance.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1962,7 +1962,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Repeat the manual synchronization attempt with the device
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1974,7 +1974,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
         /**
          * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
          * @summary Set settings
-         * @param {Settings} settings 
+         * @param {Settings} settings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1983,7 +1983,7 @@ export const Class1InstanceApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Returns the active session if the device has connected another instance of Web WhatsApp
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2003,7 +2003,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
     const localVarFp = Class1InstanceApiFp(configuration)
     return {
         /**
-         * 
+         *
          * @summary Updates the QR code after its expired
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2012,7 +2012,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
             return localVarFp.expiry(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Direct link to QR-code in the form of an image, not base64.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2041,7 +2041,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
             return localVarFp.getStatus(full, noWakeup, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Logout from WhatsApp Web to get new QR code.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2050,7 +2050,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
             return localVarFp.logout(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Reboot your whatsapp instance.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2059,7 +2059,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
             return localVarFp.reboot(options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Repeat the manual synchronization attempt with the device
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2070,7 +2070,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
         /**
          * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
          * @summary Set settings
-         * @param {Settings} settings 
+         * @param {Settings} settings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2078,7 +2078,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
             return localVarFp.setSettings(settings, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Returns the active session if the device has connected another instance of Web WhatsApp
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2097,7 +2097,7 @@ export const Class1InstanceApiFactory = function (configuration?: Configuration,
  */
 export class Class1InstanceApi extends BaseAPI {
     /**
-     * 
+     *
      * @summary Updates the QR code after its expired
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2108,7 +2108,7 @@ export class Class1InstanceApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Direct link to QR-code in the form of an image, not base64.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2143,7 +2143,7 @@ export class Class1InstanceApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Logout from WhatsApp Web to get new QR code.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2154,7 +2154,7 @@ export class Class1InstanceApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Reboot your whatsapp instance.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2165,7 +2165,7 @@ export class Class1InstanceApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Repeat the manual synchronization attempt with the device
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2178,7 +2178,7 @@ export class Class1InstanceApi extends BaseAPI {
     /**
      * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
      * @summary Set settings
-     * @param {Settings} settings 
+     * @param {Settings} settings
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class1InstanceApi
@@ -2188,7 +2188,7 @@ export class Class1InstanceApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Returns the active session if the device has connected another instance of Web WhatsApp
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2209,7 +2209,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Forwarding messages to a new or existing chat.
-         * @param {ForwardMessageRequest} forwardMessageRequest 
+         * @param {ForwardMessageRequest} forwardMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2235,7 +2235,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2304,7 +2304,57 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             }
 
 
-    
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+         * @summary Get a list of messages.
+         * @param {number} [page] page number
+         * @param {number} [count] page items count.
+         * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         * @memberof Class2MessagesApi
+         */
+        getMessagesHistory: async (page?: number, count?: number, chatId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> =>  {
+            const localVarPath = `/messagesHistory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication instanceId required
+            await setApiKeyToObject(localVarQueryParameter, "instanceId", configuration)
+
+            // authentication token required
+            await setApiKeyToObject(localVarQueryParameter, "token", configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (count !== undefined) {
+                localVarQueryParameter['count'] = count;
+            }
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chatId'] = chatId;
+            }
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -2317,7 +2367,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a contact or contact list to a new or existing chat.
-         * @param {SendContactRequest} sendContactRequest 
+         * @param {SendContactRequest} sendContactRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2343,7 +2393,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2359,7 +2409,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a file to a new or existing chat.
-         * @param {SendFileRequest} sendFileRequest 
+         * @param {SendFileRequest} sendFileRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2385,7 +2435,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2401,7 +2451,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send text with link and link\'s preview to a new or existing chat.
-         * @param {SendLinkRequest} sendLinkRequest 
+         * @param {SendLinkRequest} sendLinkRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2427,7 +2477,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2443,7 +2493,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a location to a new or existing chat.
-         * @param {SendLocationRequest} sendLocationRequest 
+         * @param {SendLocationRequest} sendLocationRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2469,7 +2519,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2485,7 +2535,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * The message will be added to the queue for sending and delivered even if the phone is disconnected from the Internet or authorization is not passed.  Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a message to a new or existing chat.
-         * @param {SendMessageRequest} sendMessageRequest 
+         * @param {SendMessageRequest} sendMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2511,7 +2561,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2527,7 +2577,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a ptt-audio to a new or existing chat.
-         * @param {SendPTTRequest} sendPTTRequest 
+         * @param {SendPTTRequest} sendPTTRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2553,7 +2603,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2569,7 +2619,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a vcard to a new or existing chat.
-         * @param {SendVCardRequest} sendVCardRequest 
+         * @param {SendVCardRequest} sendVCardRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2595,7 +2645,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2621,7 +2671,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Forwarding messages to a new or existing chat.
-         * @param {ForwardMessageRequest} forwardMessageRequest 
+         * @param {ForwardMessageRequest} forwardMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2646,9 +2696,23 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+         * @summary Get a list of messages.
+         * @param {number} [page] page number
+         * @param {number} [count] page items count.
+         * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         * @memberof Class2MessagesApi
+        */
+        async getMessagesHistory(page?: number, count?: number, chatId?: string, options?: AxiosRequestConfig) {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMessagesHistory(page, count, chatId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a contact or contact list to a new or existing chat.
-         * @param {SendContactRequest} sendContactRequest 
+         * @param {SendContactRequest} sendContactRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2659,7 +2723,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a file to a new or existing chat.
-         * @param {SendFileRequest} sendFileRequest 
+         * @param {SendFileRequest} sendFileRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2670,7 +2734,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send text with link and link\'s preview to a new or existing chat.
-         * @param {SendLinkRequest} sendLinkRequest 
+         * @param {SendLinkRequest} sendLinkRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2681,7 +2745,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a location to a new or existing chat.
-         * @param {SendLocationRequest} sendLocationRequest 
+         * @param {SendLocationRequest} sendLocationRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2692,7 +2756,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * The message will be added to the queue for sending and delivered even if the phone is disconnected from the Internet or authorization is not passed.  Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a message to a new or existing chat.
-         * @param {SendMessageRequest} sendMessageRequest 
+         * @param {SendMessageRequest} sendMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2703,7 +2767,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a ptt-audio to a new or existing chat.
-         * @param {SendPTTRequest} sendPTTRequest 
+         * @param {SendPTTRequest} sendPTTRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2714,7 +2778,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a vcard to a new or existing chat.
-         * @param {SendVCardRequest} sendVCardRequest 
+         * @param {SendVCardRequest} sendVCardRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2735,7 +2799,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Forwarding messages to a new or existing chat.
-         * @param {ForwardMessageRequest} forwardMessageRequest 
+         * @param {ForwardMessageRequest} forwardMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2760,7 +2824,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a contact or contact list to a new or existing chat.
-         * @param {SendContactRequest} sendContactRequest 
+         * @param {SendContactRequest} sendContactRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2770,7 +2834,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a file to a new or existing chat.
-         * @param {SendFileRequest} sendFileRequest 
+         * @param {SendFileRequest} sendFileRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2780,7 +2844,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send text with link and link\'s preview to a new or existing chat.
-         * @param {SendLinkRequest} sendLinkRequest 
+         * @param {SendLinkRequest} sendLinkRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2790,7 +2854,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a location to a new or existing chat.
-         * @param {SendLocationRequest} sendLocationRequest 
+         * @param {SendLocationRequest} sendLocationRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2800,7 +2864,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * The message will be added to the queue for sending and delivered even if the phone is disconnected from the Internet or authorization is not passed.  Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a message to a new or existing chat.
-         * @param {SendMessageRequest} sendMessageRequest 
+         * @param {SendMessageRequest} sendMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2810,7 +2874,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a ptt-audio to a new or existing chat.
-         * @param {SendPTTRequest} sendPTTRequest 
+         * @param {SendPTTRequest} sendPTTRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2820,7 +2884,7 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a vcard to a new or existing chat.
-         * @param {SendVCardRequest} sendVCardRequest 
+         * @param {SendVCardRequest} sendVCardRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2840,7 +2904,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Forwarding messages to a new or existing chat.
-     * @param {ForwardMessageRequest} forwardMessageRequest 
+     * @param {ForwardMessageRequest} forwardMessageRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2865,11 +2929,24 @@ export class Class2MessagesApi extends BaseAPI {
     public getMessages(lastMessageNumber?: number, last?: boolean, chatId?: string, limit?: number, minTime?: number, maxTime?: number, options?: AxiosRequestConfig) {
         return Class2MessagesApiFp(this.configuration).getMessages(lastMessageNumber, last, chatId, limit, minTime, maxTime, options).then((request) => request(this.axios, this.basePath));
     }
+    /**
+     * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+     * @summary Get a list of messages.
+     * @param {number} [page] page number
+     * @param {number} [count] page items count.
+     * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Class2MessagesApi
+     */
+    public getMessagesHistory(page?: number, count?: number, chatId?: string, options?: AxiosRequestConfig) {
+        return Class2MessagesApiFp(this.configuration).getMessagesHistory(page, count, chatId, options).then((request) => request(this.axios, this.basePath));
+    }
 
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Sending a contact or contact list to a new or existing chat.
-     * @param {SendContactRequest} sendContactRequest 
+     * @param {SendContactRequest} sendContactRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2881,7 +2958,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Send a file to a new or existing chat.
-     * @param {SendFileRequest} sendFileRequest 
+     * @param {SendFileRequest} sendFileRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2893,7 +2970,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Send text with link and link\'s preview to a new or existing chat.
-     * @param {SendLinkRequest} sendLinkRequest 
+     * @param {SendLinkRequest} sendLinkRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2905,7 +2982,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Sending a location to a new or existing chat.
-     * @param {SendLocationRequest} sendLocationRequest 
+     * @param {SendLocationRequest} sendLocationRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2917,7 +2994,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * The message will be added to the queue for sending and delivered even if the phone is disconnected from the Internet or authorization is not passed.  Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Send a message to a new or existing chat.
-     * @param {SendMessageRequest} sendMessageRequest 
+     * @param {SendMessageRequest} sendMessageRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2929,7 +3006,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Send a ptt-audio to a new or existing chat.
-     * @param {SendPTTRequest} sendPTTRequest 
+     * @param {SendPTTRequest} sendPTTRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2941,7 +3018,7 @@ export class Class2MessagesApi extends BaseAPI {
     /**
      * Only one of two parameters is needed to determine the destination - chatId or phone.
      * @summary Sending a vcard to a new or existing chat.
-     * @param {SendVCardRequest} sendVCardRequest 
+     * @param {SendVCardRequest} sendVCardRequest
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
@@ -2959,9 +3036,9 @@ export class Class2MessagesApi extends BaseAPI {
 export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
+         *
          * @summary Adding participant to a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2987,7 +3064,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3001,9 +3078,9 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
+         *
          * @summary Demote group participant
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3029,7 +3106,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3068,7 +3145,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -3081,7 +3158,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * The group will be added to the queue for sending and sooner or later it will be created, even if the phone is disconnected from the Internet or the authorization is not passed.   2 Oct 2018 update: chatId parameter will be returned if group was created on your phone within 20 second.
          * @summary Creates a group and sends the message to the created group.
-         * @param {CreateGroupAction} createGroupAction 
+         * @param {CreateGroupAction} createGroupAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3107,7 +3184,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3121,9 +3198,9 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
+         *
          * @summary Make participant in the group an administrator
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3149,7 +3226,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3165,7 +3242,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Use this method to make users see their messages read.
          * @summary Open chat for reading messages
-         * @param {ReadChatAction} readChatAction 
+         * @param {ReadChatAction} readChatAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3191,7 +3268,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3205,9 +3282,9 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * 
+         *
          * @summary Remove participant from a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3233,7 +3310,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3257,9 +3334,9 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = Class3ChatsApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
+         *
          * @summary Adding participant to a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3268,9 +3345,9 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Demote group participant
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3291,7 +3368,7 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
         /**
          * The group will be added to the queue for sending and sooner or later it will be created, even if the phone is disconnected from the Internet or the authorization is not passed.   2 Oct 2018 update: chatId parameter will be returned if group was created on your phone within 20 second.
          * @summary Creates a group and sends the message to the created group.
-         * @param {CreateGroupAction} createGroupAction 
+         * @param {CreateGroupAction} createGroupAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3300,9 +3377,9 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Make participant in the group an administrator
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3313,7 +3390,7 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
         /**
          * Use this method to make users see their messages read.
          * @summary Open chat for reading messages
-         * @param {ReadChatAction} readChatAction 
+         * @param {ReadChatAction} readChatAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3322,9 +3399,9 @@ export const Class3ChatsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         *
          * @summary Remove participant from a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3343,9 +3420,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
     const localVarFp = Class3ChatsApiFp(configuration)
     return {
         /**
-         * 
+         *
          * @summary Adding participant to a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3353,9 +3430,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.addGroupParticipant(groupParticipantAction, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Demote group participant
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3374,7 +3451,7 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
         /**
          * The group will be added to the queue for sending and sooner or later it will be created, even if the phone is disconnected from the Internet or the authorization is not passed.   2 Oct 2018 update: chatId parameter will be returned if group was created on your phone within 20 second.
          * @summary Creates a group and sends the message to the created group.
-         * @param {CreateGroupAction} createGroupAction 
+         * @param {CreateGroupAction} createGroupAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3382,9 +3459,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.group(createGroupAction, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Make participant in the group an administrator
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3394,7 +3471,7 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
         /**
          * Use this method to make users see their messages read.
          * @summary Open chat for reading messages
-         * @param {ReadChatAction} readChatAction 
+         * @param {ReadChatAction} readChatAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3402,9 +3479,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.readChat(readChatAction, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Remove participant from a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3422,9 +3499,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
  */
 export class Class3ChatsApi extends BaseAPI {
     /**
-     * 
+     *
      * @summary Adding participant to a group
-     * @param {GroupParticipantAction} groupParticipantAction 
+     * @param {GroupParticipantAction} groupParticipantAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3434,9 +3511,9 @@ export class Class3ChatsApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Demote group participant
-     * @param {GroupParticipantAction} groupParticipantAction 
+     * @param {GroupParticipantAction} groupParticipantAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3459,7 +3536,7 @@ export class Class3ChatsApi extends BaseAPI {
     /**
      * The group will be added to the queue for sending and sooner or later it will be created, even if the phone is disconnected from the Internet or the authorization is not passed.   2 Oct 2018 update: chatId parameter will be returned if group was created on your phone within 20 second.
      * @summary Creates a group and sends the message to the created group.
-     * @param {CreateGroupAction} createGroupAction 
+     * @param {CreateGroupAction} createGroupAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3469,9 +3546,9 @@ export class Class3ChatsApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Make participant in the group an administrator
-     * @param {GroupParticipantAction} groupParticipantAction 
+     * @param {GroupParticipantAction} groupParticipantAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3483,7 +3560,7 @@ export class Class3ChatsApi extends BaseAPI {
     /**
      * Use this method to make users see their messages read.
      * @summary Open chat for reading messages
-     * @param {ReadChatAction} readChatAction 
+     * @param {ReadChatAction} readChatAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3493,9 +3570,9 @@ export class Class3ChatsApi extends BaseAPI {
     }
 
     /**
-     * 
+     *
      * @summary Remove participant from a group
-     * @param {GroupParticipantAction} groupParticipantAction 
+     * @param {GroupParticipantAction} groupParticipantAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi
@@ -3515,7 +3592,7 @@ export const Class4WebhooksApiAxiosParamCreator = function (configuration?: Conf
         /**
          * Sets the URL for receiving webhook notifications of new messages and message delivery events (ack).  **API responses in \"Callbacks\" tab**
          * @summary Sets the URL for receiving webhook
-         * @param {WebhookUrl} webhookUrl 
+         * @param {WebhookUrl} webhookUrl
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3541,7 +3618,7 @@ export const Class4WebhooksApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3567,7 +3644,7 @@ export const Class4WebhooksApiFp = function(configuration?: Configuration) {
         /**
          * Sets the URL for receiving webhook notifications of new messages and message delivery events (ack).  **API responses in \"Callbacks\" tab**
          * @summary Sets the URL for receiving webhook
-         * @param {WebhookUrl} webhookUrl 
+         * @param {WebhookUrl} webhookUrl
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3588,7 +3665,7 @@ export const Class4WebhooksApiFactory = function (configuration?: Configuration,
         /**
          * Sets the URL for receiving webhook notifications of new messages and message delivery events (ack).  **API responses in \"Callbacks\" tab**
          * @summary Sets the URL for receiving webhook
-         * @param {WebhookUrl} webhookUrl 
+         * @param {WebhookUrl} webhookUrl
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3608,7 +3685,7 @@ export class Class4WebhooksApi extends BaseAPI {
     /**
      * Sets the URL for receiving webhook notifications of new messages and message delivery events (ack).  **API responses in \"Callbacks\" tab**
      * @summary Sets the URL for receiving webhook
-     * @param {WebhookUrl} webhookUrl 
+     * @param {WebhookUrl} webhookUrl
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class4WebhooksApi
@@ -3651,7 +3728,7 @@ export const Class5QueuesApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -3687,7 +3764,7 @@ export const Class5QueuesApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -3723,7 +3800,7 @@ export const Class5QueuesApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -3759,7 +3836,7 @@ export const Class5QueuesApiAxiosParamCreator = function (configuration?: Config
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -3930,7 +4007,7 @@ export const Class6BanApiAxiosParamCreator = function (configuration?: Configura
         /**
          * Send the phone number to find out if the instance is banning it
          * @summary Test ban settings
-         * @param {BanTestAction} banTestAction 
+         * @param {BanTestAction} banTestAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3956,7 +4033,7 @@ export const Class6BanApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3995,7 +4072,7 @@ export const Class6BanApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -4008,7 +4085,7 @@ export const Class6BanApiAxiosParamCreator = function (configuration?: Configura
         /**
          * **banPhoneMask** - Regular expression on which bans on numbers will be sent  **preBanMessage** - Warning message If it is set, a message will be sent before sending the ban.
          * @summary Set settings
-         * @param {BanSettings} banSettings 
+         * @param {BanSettings} banSettings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4034,7 +4111,7 @@ export const Class6BanApiAxiosParamCreator = function (configuration?: Configura
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -4060,7 +4137,7 @@ export const Class6BanApiFp = function(configuration?: Configuration) {
         /**
          * Send the phone number to find out if the instance is banning it
          * @summary Test ban settings
-         * @param {BanTestAction} banTestAction 
+         * @param {BanTestAction} banTestAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4081,7 +4158,7 @@ export const Class6BanApiFp = function(configuration?: Configuration) {
         /**
          * **banPhoneMask** - Regular expression on which bans on numbers will be sent  **preBanMessage** - Warning message If it is set, a message will be sent before sending the ban.
          * @summary Set settings
-         * @param {BanSettings} banSettings 
+         * @param {BanSettings} banSettings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4102,7 +4179,7 @@ export const Class6BanApiFactory = function (configuration?: Configuration, base
         /**
          * Send the phone number to find out if the instance is banning it
          * @summary Test ban settings
-         * @param {BanTestAction} banTestAction 
+         * @param {BanTestAction} banTestAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4121,7 +4198,7 @@ export const Class6BanApiFactory = function (configuration?: Configuration, base
         /**
          * **banPhoneMask** - Regular expression on which bans on numbers will be sent  **preBanMessage** - Warning message If it is set, a message will be sent before sending the ban.
          * @summary Set settings
-         * @param {BanSettings} banSettings 
+         * @param {BanSettings} banSettings
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -4141,7 +4218,7 @@ export class Class6BanApi extends BaseAPI {
     /**
      * Send the phone number to find out if the instance is banning it
      * @summary Test ban settings
-     * @param {BanTestAction} banTestAction 
+     * @param {BanTestAction} banTestAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class6BanApi
@@ -4164,7 +4241,7 @@ export class Class6BanApi extends BaseAPI {
     /**
      * **banPhoneMask** - Regular expression on which bans on numbers will be sent  **preBanMessage** - Warning message If it is set, a message will be sent before sending the ban.
      * @summary Set settings
-     * @param {BanSettings} banSettings 
+     * @param {BanSettings} banSettings
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class6BanApi
@@ -4217,7 +4294,7 @@ export const Class7TestingApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -4260,7 +4337,7 @@ export const Class7TestingApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};

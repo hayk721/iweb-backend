@@ -6,6 +6,7 @@ import { ChatApi } from './api/chat-api';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Subscription } from './models/subscription.model';
 import { UsersSubscriptions } from './models/users-subscriptions-pivot.model';
+import { ChatApiController } from './chat-api.controller';
 
 @Module({
   imports: [
@@ -16,5 +17,6 @@ import { UsersSubscriptions } from './models/users-subscriptions-pivot.model';
   ],
   providers: [ChatApiService, ChatApiProcessor, ChatApi],
   exports: [ChatApiService],
+  controllers: [ChatApiController],
 })
 export class ChatApiModule {}

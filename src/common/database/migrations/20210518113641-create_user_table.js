@@ -6,7 +6,7 @@ module.exports = {
     try{
         await queryInterface.createTable('user', {
           id: {
-            type: Sequelize.STRING(36),
+            type: Sequelize.CHAR(36),
             primaryKey: true,
           },
           email: {
@@ -51,7 +51,7 @@ module.exports = {
           },
           created_at: Sequelize.DATE,
           updated_at: Sequelize.DATE,},
-        { charset: 'utf8', collate: 'utf8_general_ci', transaction: t },    
+        { charset: 'utf8', collate: 'utf8_general_ci', transaction: t },
     );
       await t.commit();
     } catch (err) {
