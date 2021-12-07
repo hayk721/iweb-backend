@@ -168,7 +168,7 @@ export class UserService {
   public async validateUser($id: string): Promise<User> {
     const user = await User.findByPk<User>($id, {
       attributes: { exclude: ['password'] },
-      include: Role,
+      include: [Role, Subscription],
     });
     if (user) {
       return user;

@@ -2315,6 +2315,56 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
+         * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+         * @summary Get a list of messages.
+         * @param {number} [page] page number
+         * @param {number} [count] page items count.
+         * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         * @memberof Class2MessagesApi
+         */
+        getMessagesHistory: async (page?: number, count?: boolean, chatId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> =>  {
+            const localVarPath = `/messagesHistory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication instanceId required
+            await setApiKeyToObject(localVarQueryParameter, "instanceId", configuration)
+
+            // authentication token required
+            await setApiKeyToObject(localVarQueryParameter, "token", configuration)
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (count !== undefined) {
+                localVarQueryParameter['count'] = count;
+            }
+
+            if (chatId !== undefined) {
+                localVarQueryParameter['chatId'] = chatId;
+            }
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a contact or contact list to a new or existing chat.
          * @param {SendContactRequest} sendContactRequest 
@@ -2646,6 +2696,20 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
+         * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+         * @summary Get a list of messages.
+         * @param {number} [page] page number
+         * @param {number} [count] page items count.
+         * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         * @memberof Class2MessagesApi
+        */
+        async getMessagesHistory(page?: number, count?: boolean, chatId?: string, options?: AxiosRequestConfig) {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMessagesHistory(page, count, chatId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Sending a contact or contact list to a new or existing chat.
          * @param {SendContactRequest} sendContactRequest 
@@ -2864,6 +2928,19 @@ export class Class2MessagesApi extends BaseAPI {
      */
     public getMessages(lastMessageNumber?: number, last?: boolean, chatId?: string, limit?: number, minTime?: number, maxTime?: number, options?: AxiosRequestConfig) {
         return Class2MessagesApiFp(this.configuration).getMessages(lastMessageNumber, last, chatId, limit, minTime, maxTime, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * To receive only new messages, pass the **lastMessageNumber** parameter from the last query.  Files from messages are guaranteed to be stored only for 30 days and can be deleted. Download the files as soon as you get to your server.
+     * @summary Get a list of messages.
+     * @param {number} [page] page number
+     * @param {number} [count] page items count.
+     * @param {string} [chatId] Filter messages by chatId  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Class2MessagesApi
+     */
+    public getMessagesHistory(page?: number, count?: boolean, chatId?: string, options?: AxiosRequestConfig) {
+        return Class2MessagesApiFp(this.configuration).getMessagesHistory(page, count, chatId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -39,6 +39,11 @@ module.exports = {
             allowNull: false,
             type: Sequelize.STRING,
           },
+          lang: {
+            allowNull: false,
+            type: Sequelize.ENUM(['en', 'ar']),
+            defaultValue: 'ar',
+          },
           phone: {
             unique: true,
             allowNull: true,
