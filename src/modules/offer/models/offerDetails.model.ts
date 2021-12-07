@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { Offer } from './offer';
+import { Offer } from './offer.model';
 /**
  *
  */
@@ -16,14 +16,6 @@ export class OfferDetails extends Model {
     primaryKey: true,
   })
   id: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    unique: true,
-    primaryKey: true,
-    allowNull: false,
-  })
-  offerId: number;
 
   @Column({
     type: DataType.STRING,
@@ -54,8 +46,8 @@ export class OfferDetails extends Model {
    * Relations
    */
   @BelongsTo(() => Offer, { foreignKey: 'offerId' })
-  id: Offer;
+  offer: Offer;
   @ForeignKey(() => Offer)
-  @Column({ type: DataType.INTEGER })
-  offerId: string;
+  @Column({ type: DataType.INTEGER, unique: true, primaryKey: true, allowNull: false })
+  offerId: number;
 }

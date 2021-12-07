@@ -18,8 +18,8 @@ import { tableOptions } from '@common/database/config/table-options';
 import { genSaltSync, hashSync } from 'bcrypt';
 import { Role } from '../role/models/role.model';
 import { FcmNotification } from '../../firebase/models/fcm-notifications.model';
-import { Subscription } from "../../chat-api/models/subscription.model";
-import { UsersSubscriptions } from "../../chat-api/models/users-subscriptions-pivot.model";
+import { Subscription } from '../../chat-api/models/subscription.model';
+import { UsersSubscriptions } from '../../chat-api/models/users-subscriptions-pivot.model';
 
 /**
  *

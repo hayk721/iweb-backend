@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { OfferCategory } from './offerCategory';
+import { OfferCategory } from './offerCategory.model';
+import { OfferDetails } from './offerDetails.model';
 
 /**
  *
@@ -19,12 +20,6 @@ export class Offer extends Model {
   id: number;
 
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  categoryId: number;
-
-  @Column({
     type: DataType.STRING,
     allowNull: false,
   })
@@ -34,13 +29,13 @@ export class Offer extends Model {
     type: DataType.DATE,
     allowNull: false,
   })
-  offerStartDate: date;
+  offerStartDate: Date;
 
   @Column({
     type: DataType.DATE,
     allowNull: false,
   })
-  offerEndDate: date;
+  offerEndDate: Date;
 
   @Column({
     type: DataType.BOOLEAN,
@@ -58,15 +53,15 @@ export class Offer extends Model {
   /**
    * Relations
    */
-  @BelongsTo(() => offerDetails, { foreignKey: 'offerId' })
-  id: offerDetails;
-  @ForeignKey(() => offerDetails)
-  @Column({ type: DataType.INTEGER })
-  offerId: string;
+  @BelongsTo(() => OfferDetails, { foreignKey: 'offerId' })
+  offerDetails: OfferDetails;
+  @ForeignKey(() => OfferDetails)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  offerId: number;
 
   @BelongsTo(() => OfferCategory, { foreignKey: 'categoryId' })
-  id: OfferCategory;
+  offerCategory: OfferCategory;
   @ForeignKey(() => OfferCategory)
-  @Column({ type: DataType.INTEGER })
-  categoryId: string;
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  categoryId: number;
 }

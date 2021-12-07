@@ -1,20 +1,20 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { ReceviedComplaint } from './receviedComplaint';
+import { Offer } from './offer.model';
 
 /**
  *
  */
-tableOptions.tableName = 'complaintReceiver';
+tableOptions.tableName = 'offerCategory';
 
 @Table(tableOptions)
-export class ComplaintsReceiver extends Model {
+export class OfferCategory extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    primaryKey: true,
     unique: true,
     autoIncrement: true,
+    primaryKey: true,
   })
   id: number;
 
@@ -22,20 +22,24 @@ export class ComplaintsReceiver extends Model {
     type: DataType.STRING,
     allowNull: false,
   })
-  mobileNumber: string;
+  categoryName: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  })
+  isActive: boolean;
 
   @Column({
     type: DataType.STRING,
     allowNull: true,
   })
-  receiverName: string;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true })
-  isActive: boolean;
+  secondLangVal: string;
 
   /**
    * Relations
    */
-  @HasMany(() => ReceviedComplaint)
-  receiverId: ReceviedComplaint[];
+  @HasMany(() => Offer)
+  categoryId: Offer[];
 }

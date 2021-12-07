@@ -1,7 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { ComplaintsReceiver } from './complaintsReceiver';
-import { Complaint } from './complaint';
+import { ComplaintsReceiver } from './complaintsReceiver.model';
+import { Complaint } from './complaint.model';
 /**
  *
  */
@@ -9,30 +9,18 @@ tableOptions.tableName = 'receviedComplaint';
 
 @Table(tableOptions)
 export class ReceviedComplaint extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  complaintId: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  receiverId: number;
-
   /**
    * Relations
    */
   @BelongsTo(() => Complaint, { foreignKey: 'complaintId' })
-  id: Complaint;
+  complaint: Complaint;
   @ForeignKey(() => Complaint)
-  @Column({ type: DataType.INTEGER })
+  @Column({ type: DataType.INTEGER, allowNull: false })
   complaintId: string;
 
   @BelongsTo(() => ComplaintsReceiver, { foreignKey: 'receiverId' })
-  id: ComplaintsReceiver;
+  complaintReceiver: ComplaintsReceiver;
   @ForeignKey(() => ComplaintsReceiver)
-  @Column({ type: DataType.INTEGER })
-  receiverId: string;
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  receiverId: number;
 }

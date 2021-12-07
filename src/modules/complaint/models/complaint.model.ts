@@ -1,8 +1,8 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
-import { sessionT } from './sessionT';
-import { ReceviedComplaint } from './receviedComplaint';
-import { ComplaintImage } from './complaintImage';
+import { SessionT } from './sessionT.model';
+import { ReceviedComplaint } from './receviedComplaint.model';
+import { ComplaintImage } from './complaintImage.model';
 
 /**
  *
@@ -18,12 +18,6 @@ export class Complaint extends Model {
     unique: true,
   })
   id: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  sessionId: number;
 
   @Column({ type: DataType.STRING, allowNull: false })
   mobileNumber: string;
@@ -41,13 +35,13 @@ export class Complaint extends Model {
    * Relations
    */
   @HasMany(() => ReceviedComplaint)
-  complaintId: ReceviedComplaint[];
+  receviedComplaints: ReceviedComplaint[];
 
-  @BelongsTo(() => sessionT, { foreignKey: 'sessionId' })
-  id: sessionT;
-  @ForeignKey(() => sessionT)
-  @Column({ type: DataType.INTEGER })
-  sessionId: string;
+  @BelongsTo(() => SessionT, { foreignKey: 'sessionId' })
+  sessionT: SessionT;
+  @ForeignKey(() => SessionT)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  sessionId: number;
 
   @HasOne(() => ComplaintImage)
   complaintId: ComplaintImage;
