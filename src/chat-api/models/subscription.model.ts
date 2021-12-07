@@ -1,4 +1,4 @@
-import { BelongsToMany, Column, CreatedAt, DataType, IsUUID, Model, Table } from 'sequelize-typescript';
+import { BelongsToMany, Column, DataType, IsUUID, Model, Table } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
 import { User } from '../../user/models/user.model';
 import { UsersSubscriptions } from './users-subscriptions-pivot.model';
@@ -8,7 +8,7 @@ import { UsersSubscriptions } from './users-subscriptions-pivot.model';
  */
 tableOptions.tableName = 'subscription';
 
-@Table({ ...tableOptions })
+@Table({ ...tableOptions, updatedAt: false, createdAt: false })
 export class Subscription extends Model {
   @IsUUID('4')
   @Column({
@@ -34,6 +34,9 @@ export class Subscription extends Model {
   @BelongsToMany(() => User, () => UsersSubscriptions)
   users: User[];
 
-  @CreatedAt
-  created_at: Date;
+  @Column({ type: DataType.DATE, allowNull: false })
+  subscriptionStart: Date;
+
+  @Column({ type: DataType.DATE, allowNull: false })
+  subscriptionEnd: Date;
 }

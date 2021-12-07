@@ -5,7 +5,6 @@ import { FirebaseAdmin } from '../../firebase/firebase-admin';
 import { User } from '../models/user.model';
 import { Role } from '../role/models/role.model';
 import { EditUserDto, CreateUserDto } from './user-management.dto';
-import { Subscription } from "../../chat-api/models/subscription.model";
 
 @Injectable()
 export class UserManagementService {

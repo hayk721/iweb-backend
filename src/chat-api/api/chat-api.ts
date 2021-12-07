@@ -1,13 +1,4 @@
-import {
-  Chats,
-  Class1InstanceApi,
-  Class2MessagesApi,
-  Class3ChatsApi,
-  Configuration,
-  ConfigurationParameters,
-  Messages,
-  Settings
-} from "./sdk";
+import { Chats, Class1InstanceApi, Class2MessagesApi, Class3ChatsApi, Configuration, ConfigurationParameters, Messages, Settings } from './sdk';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
