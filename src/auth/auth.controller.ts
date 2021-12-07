@@ -7,7 +7,7 @@ import { MailService } from '../mail/mail.service';
 import { IsPublic } from '@common/decorators/is-public.decorator';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../user/user.service';
-import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, CreateUserDto, ResetPasswordDto } from './auth.dto';
+import { AuthRequestDto, ChangeCurrentUserPasswordDto, ChangePasswordDto, CreateResetPasswordDto, ResetPasswordDto } from './auth.dto';
 import { User } from '../user/models/user.model';
 import { Roles } from '@userRoles';
 

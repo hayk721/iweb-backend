@@ -9,28 +9,36 @@ module.exports = {
               type: Sequelize.STRING(36),
               primaryKey: true,
             },
-            channel_type: {
+            type: {
               allowNull: false,
               type: Sequelize.STRING,
             },
-            channel_api: {
+            instance_id: {
               type: Sequelize.STRING,
               allowNull: false,
             },
-            channel_token: {
+            api_key: {
               allowNull: false,
               type: Sequelize.STRING
             },
-            channel_webhook: {
+            webhook: {
               allowNull: true,
               type: Sequelize.TEXT
             },
             is_active: {
               allowNull: true,
               type: Sequelize.BOOLEAN,
+              default: false
             },
-            subscription_start: Sequelize.DATE,
-            subscription_end: Sequelize.DATE,},
+            subscription_start: {
+              type: Sequelize.DATE,
+              allowNull: false,
+            },
+            subscription_end: {
+              type: Sequelize.DATE,
+              allowNull: false,
+            },
+         },
           { charset: 'utf8', collate: 'utf8_general_ci', transaction: t },
       );
       await t.commit();

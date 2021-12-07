@@ -59,33 +59,3 @@ export class ChangeCurrentUserPasswordDto {
   @Match('password', { message: 'must match the password' })
   passwordConfirm: string;
 }
-
-export class CreateUserDto {
-  @IsNotEmpty({ message: 'Email is required' })
-  @IsEmail({}, { message: 'Invalid Email' })
-  email: string;
-
-  @IsNotEmpty({ message: 'Password is required' })
-  @IsString()
-  @MinLength(6)
-  @MaxLength(20)
-  password: string;
-
-  @IsUUID('4')
-  roleId: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  display_name: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  phone: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  avatar: string;
-}

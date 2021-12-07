@@ -41,6 +41,6 @@ import { MailProcessor } from './mail.processor';
     }),
   ],
   providers: [MailService, MailProcessor],
-  exports: [MailService], // 👈 export for DI
+  exports: [MailService],
 })
 export class MailModule {}
