@@ -6,7 +6,7 @@ import { ChatApi } from './api/chat-api';
 import { InjectModel } from '@nestjs/sequelize';
 import { Subscription } from './models/subscription.model';
 import { AxiosRequestConfig } from 'axios';
-import { Messages, SendMessageRequest, SendMessageStatus } from './api/sdk';
+import { Messages, SendLinkRequest, SendMessageRequest, SendMessageStatus } from './api/sdk';
 import { IChannel } from './interfaces/channel.interface';
 
 @Injectable()
@@ -95,6 +95,24 @@ export class ChatApiService {
     const messagesApi = await this._chatApi.setChannel(channel).message();
     try {
       return (await messagesApi.sendMessage(sendMessageRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Send text with link and link\'s preview to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendLinkRequest} sendLinkRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendLink(channel: IChannel, sendLinkRequest: SendLinkRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendLink(sendLinkRequest, options)).data;
     } catch (e) {
       throw new BadGatewayException(e.message);
     }

@@ -6,7 +6,8 @@ import { GetMessagesDto } from './dto/get-messages.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { GetMessagesHistoryDto } from './dto/get-messages-history.dto';
 import { SendMessageDto } from './dto/send-message.dto';
-import { SendMessageRequest } from './api/sdk';
+import { SendLinkDto } from './dto/send-link.dto';
+import { SendLinkRequest, SendMessageRequest } from './api/sdk';
 
 @ApiTags('chat-api')
 @ApiBearerAuth()
@@ -27,7 +28,7 @@ export class ChatApiController {
     return this._chatApiService.getMessage(subscription, lastMessageNumber, last, chatId, limit, minTime, maxTime);
   }
   /**
-   * Get all messages
+   * Get a list of messages sorted by time descending
    *
    * @param user
    * @param params
@@ -39,7 +40,7 @@ export class ChatApiController {
     return this._chatApiService.getMessagesHistory(subscription, page, count, chatId);
   }
   /**
-   * Get all messages
+   * Send a message to a new or existing chat.
    *
    * @param user
    * @param body
@@ -54,6 +55,27 @@ export class ChatApiController {
       phone: body.phone,
     };
     return this._chatApiService.sendMessage(subscription, sendMessageRequest);
+  }
+
+  /**
+   * Send text with link and link's preview to a new or existing chat.
+   *
+   * @param user
+   * @param body
+   */
+  @Post('sendLink')
+  async sendLink(@CurrentUser() user: User, @Body() body: SendLinkDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    const sendLinkRequest: SendLinkRequest = {
+      body: body.body,
+      chatId: body.chatId,
+      phone: body.phone,
+      previewBase64: body.previewBase64,
+      title: body.title,
+      description: body.description,
+    };
+    return this._chatApiService.sendLink(subscription, sendLinkRequest);
   }
 
   /**
