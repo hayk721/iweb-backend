@@ -1306,6 +1306,99 @@ export interface SendMessageRequest {
     'body': string;
 }
 /**
+ *
+ * @export
+ * @interface SendProductRequest
+ */
+export interface SendProductRequest {
+    /**
+     * **Required if phone is not set**  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group. Used instead of the phone parameter.
+     * @type {string}
+     * @memberof SendProductRequest
+     */
+    'chatId'?: string;
+    /**
+     * **Required if chatId is not set**  A phone number starting with the country code. You do not need to add your number.   USA example: 17472822486.
+     * @type {number}
+     * @memberof SendProductRequest
+     */
+    'phone'?: number;
+    /**
+     * HTTP link *https://upload.wikimedia.org/wikipedia/ru/3/33/NatureCover2001.jpg*  Or base64-encoded file with mime data, for example *data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ...*   File in form-data input field
+     * @type {string}
+     * @memberof SendProductRequest
+     */
+    'body': string;
+    /**
+     * File name, for *example 1.jpg* or *hello.xlsx*
+     * @type {string}
+     * @memberof SendProductRequest
+     */
+    'filename': string;
+    /**
+     * **Id of the product. Can be achieved via /getProducts.
+     * @type {string}
+     * @memberof SendProductRequest
+     */
+    'productId': string;
+}
+/**
+ *
+ * @export
+ * @interface SendButtonsRequest
+ */
+export interface SendButtonsRequest {
+    /**
+     * **Required if phone is not set**  Chat ID from the message list. Examples: 17633123456@c.us for private messages and 17680561234-1479621234@g.us for the group. Used instead of the phone parameter.
+     * @type {string}
+     * @memberof SendButtonsRequest
+     */
+    'chatId'?: string;
+    /**
+     * **Required if chatId is not set**  A phone number starting with the country code. You do not need to add your number.   USA example: 17472822486.
+     * @type {number}
+     * @memberof SendButtonsRequest
+     */
+    'phone'?: number;
+    /**
+     * **Message title, displayed on top of the message. Example: Title.
+     * @type {string}
+     * @memberof SendButtonsRequest
+     */
+    'title': string;
+    /**
+     * **Text of message. Example: Please choose option.
+     * @type {string}
+     * @memberof SendButtonsRequest
+     */
+    'body': string;
+    /**
+     * **Message footer, displayed on bottom of the message. Example: Thank you.
+     * @type {string}
+     * @memberof SendButtonsRequest
+     */
+    'footer': string;
+    /**
+     * **Array of available buttons. Example: ["Option A", "Option B"]
+     * @type {Array<string>}
+     * @memberof SendButtonsRequest
+     */
+    'buttons': Array<string>
+}
+/**
+ *
+ * @export
+ * @interface DeleteMessageRequest
+ */
+export interface DeleteMessageRequest {
+    /**
+     * **Message ID from messages history. Example: "false_6590996758@c.us_3EB03104D2B84CEAD82F".
+     * @type {string}
+     * @memberof SendProductRequest
+     */
+    'messageId': string;
+}
+/**
  * 
  * @export
  * @interface SendMessageStatus
@@ -2236,7 +2329,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2324,7 +2417,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          * @memberof Class2MessagesApi
          */
-        getMessagesHistory: async (page?: number, count?: boolean, chatId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> =>  {
+        getMessagesHistory: async (page?: number, count?: number, chatId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> =>  {
             const localVarPath = `/messagesHistory`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2393,8 +2486,8 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2435,8 +2528,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2477,8 +2569,8 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2519,8 +2611,8 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2535,7 +2627,7 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
         /**
          * The message will be added to the queue for sending and delivered even if the phone is disconnected from the Internet or authorization is not passed.  Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a message to a new or existing chat.
-         * @param {SendMessageRequest} sendMessageRequest 
+         * @param {SendMessageRequest} sendMessageRequest
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2561,13 +2653,136 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(sendMessageRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Send a file to a new or existing chat.
+         * @param {SendProductRequest} sendProductRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendProduct: async (sendProductRequest: SendProductRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('sendProduct', 'sendProductRequest', sendProductRequest)
+            const localVarPath = `/sendProduct`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication instanceId required
+            await setApiKeyToObject(localVarQueryParameter, "instanceId", configuration)
+
+            // authentication token required
+            await setApiKeyToObject(localVarQueryParameter, "token", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sendProductRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Sending a buttons to a new or existing chat.
+         * @param {SendButtonsRequest} sendButtonsRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendButtons: async (sendButtonsRequest: SendButtonsRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('sendButtons', 'sendButtonsRequest', sendButtonsRequest)
+            const localVarPath = `/sendButtons`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication instanceId required
+            await setApiKeyToObject(localVarQueryParameter, "instanceId", configuration)
+
+            // authentication token required
+            await setApiKeyToObject(localVarQueryParameter, "token", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sendButtonsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * The message will be deleted.
+         * @summary Delete message from WhatsApp.
+         * @param {DeleteMessageRequest} deleteMessageRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMessage: async (deleteMessageRequest: DeleteMessageRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('deleteMessage', 'deleteMessageRequest', deleteMessageRequest)
+            const localVarPath = `/deleteMessage`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication instanceId required
+            await setApiKeyToObject(localVarQueryParameter, "instanceId", configuration)
+
+            // authentication token required
+            await setApiKeyToObject(localVarQueryParameter, "token", configuration)
+
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteMessageRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2603,8 +2818,8 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2645,8 +2860,8 @@ export const Class2MessagesApiAxiosParamCreator = function (configuration?: Conf
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
-            localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -2705,7 +2920,7 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
          * @throws {RequiredError}
          * @memberof Class2MessagesApi
         */
-        async getMessagesHistory(page?: number, count?: boolean, chatId?: string, options?: AxiosRequestConfig) {
+        async getMessagesHistory(page?: number, count?: number, chatId?: string, options?: AxiosRequestConfig) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMessagesHistory(page, count, chatId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2762,6 +2977,39 @@ export const Class2MessagesApiFp = function(configuration?: Configuration) {
          */
         async sendMessage(sendMessageRequest: SendMessageRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendMessageStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.sendMessage(sendMessageRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Send a file to a new or existing chat.
+         * @param {SendProductRequest} sendProductRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async sendProduct(sendProductRequest: SendProductRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendMessageStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.sendProduct(sendProductRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Sending a buttons to a new or existing chat.
+         * @param {SendButtonsRequest} sendButtonsRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async sendButtons(sendButtonsRequest: SendButtonsRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendMessageStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.sendButtons(sendButtonsRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * The message will be deleted.
+         * @summary Delete message from WhatsApp.
+         * @param {SendProductRequest} deleteMessageRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteMessage(deleteMessageRequest: DeleteMessageRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SendMessageStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteMessage(deleteMessageRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2873,6 +3121,36 @@ export const Class2MessagesApiFactory = function (configuration?: Configuration,
         },
         /**
          * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Send a file to a new or existing chat.
+         * @param {SendProductRequest} sendProductRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendProduct(sendProductRequest: SendProductRequest, options?: any): AxiosPromise<SendMessageStatus> {
+            return localVarFp.sendProduct(sendProductRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
+         * @summary Sending a buttons to a new or existing chat.
+         * @param {SendButtonsRequest} sendButtonsRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendButtons(sendButtonsRequest: SendButtonsRequest, options?: any): AxiosPromise<SendMessageStatus> {
+            return localVarFp.sendButtons(sendButtonsRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * The message will be deleted.
+         * @summary Delete message from WhatsApp.
+         * @param {DeleteMessageRequest} deleteMessageRequest
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteMessage(deleteMessageRequest: DeleteMessageRequest, options?: any): AxiosPromise<SendMessageStatus> {
+            return localVarFp.deleteMessage(deleteMessageRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Only one of two parameters is needed to determine the destination - chatId or phone.
          * @summary Send a ptt-audio to a new or existing chat.
          * @param {SendPTTRequest} sendPTTRequest 
          * @param {*} [options] Override http request option.
@@ -2939,7 +3217,7 @@ export class Class2MessagesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof Class2MessagesApi
      */
-    public getMessagesHistory(page?: number, count?: boolean, chatId?: string, options?: AxiosRequestConfig) {
+    public getMessagesHistory(page?: number, count?: number, chatId?: string, options?: AxiosRequestConfig) {
         return Class2MessagesApiFp(this.configuration).getMessagesHistory(page, count, chatId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -3001,6 +3279,42 @@ export class Class2MessagesApi extends BaseAPI {
      */
     public sendMessage(sendMessageRequest: SendMessageRequest, options?: AxiosRequestConfig) {
         return Class2MessagesApiFp(this.configuration).sendMessage(sendMessageRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Only one of two parameters is needed to determine the destination - chatId or phone.
+     * @summary Send a file to a new or existing chat.
+     * @param {SendProductRequest} sendProductRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Class2MessagesApi
+     */
+    public sendProduct(sendProductRequest: SendProductRequest, options?: AxiosRequestConfig) {
+        return Class2MessagesApiFp(this.configuration).sendProduct(sendProductRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Only one of two parameters is needed to determine the destination - chatId or phone.
+     * @summary Sending a buttons to a new or existing chat.
+     * @param {SendButtonsRequest} sendButtonsRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Class2MessagesApi
+     */
+    public sendButtons(sendButtonsRequest: SendButtonsRequest, options?: AxiosRequestConfig) {
+        return Class2MessagesApiFp(this.configuration).sendButtons(sendButtonsRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * The message will be deleted.
+     * @summary Delete message from WhatsApp.
+     * @param {DeleteMessageRequest} deleteMessageRequest
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Class2MessagesApi
+     */
+    public deleteMessage(deleteMessageRequest: DeleteMessageRequest, options?: AxiosRequestConfig) {
+        return Class2MessagesApiFp(this.configuration).deleteMessage(deleteMessageRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3310,7 +3624,7 @@ export const Class3ChatsApiAxiosParamCreator = function (configuration?: Configu
             await setApiKeyToObject(localVarQueryParameter, "token", configuration)
 
 
-    
+
             localVarHeaderParameter['Content-Type'] = 'application/x-www-form-urlencoded';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -3479,9 +3793,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
             return localVarFp.readChat(readChatAction, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         *
          * @summary Remove participant from a group
-         * @param {GroupParticipantAction} groupParticipantAction 
+         * @param {GroupParticipantAction} groupParticipantAction
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3499,9 +3813,9 @@ export const Class3ChatsApiFactory = function (configuration?: Configuration, ba
  */
 export class Class3ChatsApi extends BaseAPI {
     /**
-     * 
+     *
      * @summary Adding participant to a group
-     * @param {GroupParticipantAction} groupParticipantAction 
+     * @param {GroupParticipantAction} groupParticipantAction
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Class3ChatsApi

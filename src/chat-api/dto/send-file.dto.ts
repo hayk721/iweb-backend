@@ -1,7 +1,7 @@
-import { IsString, IsInt, IsOptional, IsUUID, ValidateIf } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsUUID, Matches, ValidateIf } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-export class SendLinkDto {
+export class SendFileDto {
   @IsUUID('4')
   subscriptionId: string;
 
@@ -14,16 +14,14 @@ export class SendLinkDto {
   chatId: string;
 
   @IsString()
+  @Matches(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/)
   body: string;
 
   @IsString()
-  previewBase64: string;
-
-  @IsString()
-  title: string;
+  filename: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  description?: string;
+  caption?: string;
 }

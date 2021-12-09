@@ -13,7 +13,7 @@ export class GetMessagesHistoryDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsBoolean()
-  count?: boolean;
+  count?: number;
 
   @ApiPropertyOptional()
   @IsOptional()

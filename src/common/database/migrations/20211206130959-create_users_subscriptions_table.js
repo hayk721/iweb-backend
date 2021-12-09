@@ -6,11 +6,11 @@ module.exports = {
     try{
       await queryInterface.createTable('users_subscriptions', {
           id: {
-            type: Sequelize.STRING(36),
+            type: Sequelize.CHAR(36),
             primaryKey: true,
           },
           user_id: {
-            type: Sequelize.STRING(36),
+            type: Sequelize.CHAR(36),
             references: {
               model: {
                 tableName: 'user',
@@ -22,7 +22,7 @@ module.exports = {
             allowNull: false,
           },
           subscription_id: {
-            type: Sequelize.STRING(36),
+            type: Sequelize.CHAR(36),
             references: {
               model: {
                 tableName: 'subscription',

@@ -1,7 +1,7 @@
-import { IsString, IsInt, IsOptional, IsUUID, ValidateIf } from 'class-validator';
+import { IsString, IsInt, IsOptional, IsUUID, IsArray, ValidateNested, ValidateIf } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
-export class SendLinkDto {
+export class SendButtonsDto {
   @IsUUID('4')
   subscriptionId: string;
 
@@ -13,17 +13,20 @@ export class SendLinkDto {
   @ValidateIf((o) => o.phone == undefined || o.chatId)
   chatId: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  title?: string;
+
   @IsString()
   body: string;
-
-  @IsString()
-  previewBase64: string;
-
-  @IsString()
-  title: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  description?: string;
+  footer?: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  buttons: Array<string>;
 }

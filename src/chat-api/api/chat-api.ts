@@ -1,11 +1,7 @@
 import { Chats, Class1InstanceApi, Class2MessagesApi, Class3ChatsApi, Configuration, ConfigurationParameters, Messages, Settings } from './sdk';
 import { Injectable } from '@nestjs/common';
-import { AxiosRequestConfig } from 'axios';
 
 @Injectable()
-  message() {
-      throw new Error('Method not implemented.');
-  }
 export class ChatApi {
   private _instance: Class1InstanceApi;
   private _message: Class2MessagesApi;

@@ -6,7 +6,21 @@ import { ChatApi } from './api/chat-api';
 import { InjectModel } from '@nestjs/sequelize';
 import { Subscription } from './models/subscription.model';
 import { AxiosRequestConfig } from 'axios';
-import { Messages, SendLinkRequest, SendMessageRequest, SendMessageStatus } from './api/sdk';
+import {
+  Messages,
+  SendLinkRequest,
+  SendMessageRequest,
+  SendMessageStatus,
+  SendFileRequest,
+  SendPTTRequest,
+  SendContactRequest,
+  SendLocationRequest,
+  SendVCardRequest,
+  ForwardMessageRequest,
+  SendProductRequest,
+  DeleteMessageRequest,
+  SendButtonsRequest,
+} from './api/sdk';
 import { IChannel } from './interfaces/channel.interface';
 
 @Injectable()
@@ -74,7 +88,7 @@ export class ChatApiService {
    * @throws {RequiredError}
    * @memberof Class2MessagesApi
    */
-  async getMessagesHistory(channel: IChannel, page?: number, count?: boolean, chatId?: string, options?: AxiosRequestConfig): Promise<Messages> {
+  async getMessagesHistory(channel: IChannel, page?: number, count?: number, chatId?: string, options?: AxiosRequestConfig): Promise<Messages> {
     const messagesApi = await this._chatApi.setChannel(channel).message();
     try {
       return (await messagesApi.getMessagesHistory(page, count, chatId, options)).data;
@@ -113,6 +127,168 @@ export class ChatApiService {
     const messagesApi = await this._chatApi.setChannel(channel).message();
     try {
       return (await messagesApi.sendLink(sendLinkRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Send a file to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendFileRequest} sendFileRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendFile(channel: IChannel, sendFileRequest: SendFileRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendFile(sendFileRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Send a ptt-audio to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendPTTRequest} sendPTTRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendPTT(channel: IChannel, sendPTTRequest: SendPTTRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendPTT(sendPTTRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Sending a contact or contact list to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendContactRequest} sendContactRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendContact(channel: IChannel, sendContactRequest: SendContactRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendContact(sendContactRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Sending a location to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendLocationRequest} sendLocationRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendLocation(channel: IChannel, sendLocationRequest: SendLocationRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendLocation(sendLocationRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Sending a vcard to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendVCardRequest} sendVCardRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendVCard(channel: IChannel, sendVCardRequest: SendVCardRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendVCard(sendVCardRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Forwarding messages to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {ForwardMessageRequest} forwardMessageRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async forwardMessage(channel: IChannel, forwardMessageRequest: ForwardMessageRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.forwardMessage(forwardMessageRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Send a file to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendProductRequest} sendProductRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendProduct(channel: IChannel, sendProductRequest: SendProductRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendProduct(sendProductRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * The message will be deleted.
+   * @summary Delete message from WhatsApp.
+   * @param {IChannel} [channel] channel
+   * @param {DeleteMessageRequest} deleteMessageRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async deleteMessage(channel: IChannel, deleteMessageRequest: DeleteMessageRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.deleteMessage(deleteMessageRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Only one of two parameters is needed to determine the destination - chatId or phone.
+   * @summary Sending a buttons to a new or existing chat.
+   * @param {IChannel} [channel] channel
+   * @param {SendButtonsRequest} sendButtonsRequest
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class2MessagesApi
+   */
+  async sendButtons(channel: IChannel, sendButtonsRequest: SendButtonsRequest, options?: AxiosRequestConfig): Promise<SendMessageStatus> {
+    const messagesApi = await this._chatApi.setChannel(channel).message();
+    try {
+      return (await messagesApi.sendButtons(sendButtonsRequest, options)).data;
     } catch (e) {
       throw new BadGatewayException(e.message);
     }

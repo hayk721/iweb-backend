@@ -6,7 +6,7 @@ module.exports = {
     try {
       await queryInterface.createTable('password_reset', {
         id: {
-          type: Sequelize.STRING(36),
+          type: Sequelize.CHAR(36),
           primaryKey: true,
         },
         email: {
