@@ -3,7 +3,10 @@ import { RoleService } from './role.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { EditRoleDto } from './dto/edit-role.dto';
 import { CreateRoleDto } from './dto/create-role.dto';
+import { Roles } from '@userRoles';
+import { ROLES } from '@enums/user-types';
 
+@Roles(ROLES.ADMIN)
 @ApiTags('role')
 @ApiBearerAuth()
 @Controller('role')

@@ -1,48 +1,47 @@
 import {
   IsEmail,
-  IsEnum,
-  IsObject,
   IsOptional,
   IsString,
-  Length,
   IsUUID,
-  IsBoolean,
   MinLength,
   MaxLength,
-  IsNumber,
-} from 'class-validator';
+  IsNotEmpty,
+  ArrayNotEmpty
+} from "class-validator";
 import { Match } from '@common/decorators/match.decorator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateUserDto {
-  @IsUUID()
-  roleId: string;
-
-  @IsString({ message: 'Email must be a string' })
+  @IsNotEmpty({ message: 'Email is required' })
   @IsEmail({}, { message: 'Invalid Email' })
-  @IsOptional()
   email: string;
 
-  @IsString({ message: 'Password must be string' })
+  @IsNotEmpty({ message: 'Password is required' })
+  @IsString()
+  @MinLength(6)
+  @MaxLength(20)
   password: string;
 
-  @IsString({ message: 'First Name must be a string' })
-  @Length(3, 15, { message: 'First Name min: 3, max: 15' })
-  firstName: string;
+  @IsUUID('4')
+  roleId: string;
 
-  @IsString({ message: 'Last Name must be a string' })
-  @Length(3, 15, { message: 'Last Name min: 3, max: 15' })
-  lastName: string;
-
-  @IsString({ message: 'Mobile must be a string' })
+  @ApiPropertyOptional()
   @IsOptional()
-  mobileNumber: string;
+  @IsString()
+  display_name: string;
 
-  @IsBoolean()
+  @ApiPropertyOptional()
   @IsOptional()
-  isSuspend: boolean;
+  @IsString()
+  phone: string;
 
-  @IsNumber()
-  identityId: number;
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  avatar: string;
+
+  @IsUUID(4, { each: true })
+  subscriptions: string[];
 }
 
 export class EditUserDto {
@@ -60,22 +59,19 @@ export class EditUserDto {
   password: string;
 
   @IsOptional()
-  @IsString({ message: 'First Name must be a string' })
-  @Length(3, 15, { message: 'First Name min: 3, max: 15' })
-  firstName: string;
-
-  @IsOptional()
-  @IsString({ message: 'Last Name must be a string' })
-  @Length(3, 15, { message: 'Last Name min: 3, max: 15' })
-  lastName: string;
-
-  @IsOptional()
   @IsString({ message: 'Mobile must be a string' })
-  mobileNumber: string;
+  phone: string;
 
-  @IsBoolean()
   @IsOptional()
-  isSuspend: boolean;
+  @IsString()
+  display_name: string;
+
+  @IsOptional()
+  @IsString()
+  avatar: string;
+
+  @IsUUID(4, { each: true })
+  subscriptions: string[];
 }
 
 export class ChangePasswordDto {
@@ -95,14 +91,6 @@ export class ChangeUserRoleDto {
 
   @IsString()
   role: string;
-}
-
-export class ChangeUserSuspendDto {
-  @IsUUID()
-  userId: string;
-
-  @IsBoolean()
-  suspend: boolean;
 }
 
 export class ChangeUserPasswordDto {

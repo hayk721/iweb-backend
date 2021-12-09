@@ -6,7 +6,7 @@ module.exports = {
     try {
       await queryInterface.createTable('password_reset', {
         id: {
-          type: Sequelize.STRING(36),
+          type: Sequelize.CHAR(36),
           primaryKey: true,
         },
         email: {
@@ -17,8 +17,9 @@ module.exports = {
           type: Sequelize.STRING,
           allowNull: false,
         },
-        created_at: Sequelize.DATE,
-      });
+        created_at: Sequelize.DATE,},
+        { charset: 'utf8', collate: 'utf8_general_ci', transaction: t },
+      );
       await t.commit();
     } catch (err) {
       await t.rollback();
@@ -26,7 +27,7 @@ module.exports = {
     }
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     const t = await queryInterface.sequelize.transaction();
     try {
       await queryInterface.dropTable('password_reset');

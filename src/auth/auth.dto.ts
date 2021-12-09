@@ -1,6 +1,6 @@
 import { IsEmail, IsString, Matches, MinLength, MaxLength, IsNotEmpty, IsUUID, IsOptional } from 'class-validator';
 import { Match } from '@common/decorators/match.decorator';
-import { IStringifyOptions } from 'qs';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class AuthRequestDto {
   @IsNotEmpty({ message: 'username is required' })
@@ -21,9 +21,7 @@ export class CreateResetPasswordDto {
 }
 
 export class ResetPasswordDto {
-  @IsString()
-  @MinLength(36)
-  @MaxLength(36)
+  @IsUUID('4')
   token: string;
 
   @IsString()
@@ -60,26 +58,4 @@ export class ChangeCurrentUserPasswordDto {
   @IsString()
   @Match('password', { message: 'must match the password' })
   passwordConfirm: string;
-}
-
-export class CreateUserDto {
-
-  @IsNotEmpty({ message: 'Email is required' })
-  @IsEmail({}, { message: 'Invalid Email' })
-  email: string;
-
-  @IsNotEmpty({ message: 'Password is required' })
-  @IsString()
-  @MinLength(6)
-  @MaxLength(20)
-  password: string;
-
-  @IsNotEmpty({ message: 'PasswordConfirm is required' })
-  @IsString()
-  @Match('password', { message: 'must match the password' })
-  passwordConfirm: string;
-
-  @IsOptional()
-  @IsUUID('4')
-  roleId: string;
 }

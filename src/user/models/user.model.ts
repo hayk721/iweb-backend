@@ -3,6 +3,7 @@ import {
   AfterSave,
   BeforeCreate,
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   DefaultScope,
@@ -15,9 +16,10 @@ import {
 } from 'sequelize-typescript';
 import { tableOptions } from '@common/database/config/table-options';
 import { genSaltSync, hashSync } from 'bcrypt';
-import { LANG } from '@enums/user-lang.enum';
 import { Role } from '../role/models/role.model';
 import { FcmNotification } from '../../firebase/models/fcm-notifications.model';
+import { Subscription } from "../../chat-api/models/subscription.model";
+import { UsersSubscriptions } from "../../chat-api/models/users-subscriptions-pivot.model";
 
 /**
  *
@@ -46,41 +48,18 @@ export class User extends Model {
   @Column({ validate: { isEmail: true }, type: DataType.STRING, allowNull: false, unique: true })
   email: string;
 
-  @Column({ type: DataType.TEXT, allowNull: false })
+  @Column({ type: DataType.STRING, allowNull: false })
   password: string;
 
   @Column({ type: DataType.STRING, allowNull: true })
-  firstName: string;
-
-  @Column({ type: DataType.STRING, allowNull: true })
-  lastName: string;
+  display_name: string;
 
   @Column({ type: DataType.STRING(15), allowNull: true, unique: true })
-  mobileNumber: string;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isEmailVerified: boolean;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isMobileVerified: boolean;
-
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: false })
-  isSuspend: boolean;
-
-  @Column({ type: DataType.DATE, allowNull: true })
-  lastLoginDate: Date;
-
-  @Column({ type: DataType.DATE, allowNull: true })
-  lastLogOutDate: Date;
+  phone: string;
 
   @Column({ type: DataType.TEXT, allowNull: true })
   avatar: string;
 
-  @Column({ type: DataType.BOOLEAN, allowNull: true, defaultValue: true })
-  isNew: boolean;
-
-  @Column({ type: DataType.ENUM({ values: Object.keys(LANG) }), allowNull: true, defaultValue: LANG.AR })
-  lang: LANG;
   /**
    * Relations
    */
@@ -93,6 +72,8 @@ export class User extends Model {
   @Column({ type: DataType.STRING(36) })
   roleId: string;
 
+  @BelongsToMany(() => Subscription, () => UsersSubscriptions)
+  subscriptions: Subscription[];
   /**
    * @description Hooks
    * @param user
