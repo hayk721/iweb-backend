@@ -1,21 +1,25 @@
-import { IsString, IsInt, IsUUID, IsNumber, ValidateIf } from 'class-validator';
+import { IsString, IsInt, IsUUID, ValidateIf, IsLatitude, IsLongitude } from 'class-validator';
+import { IsChatId } from '@common/decorators/is-chatId.decorator';
+import { ToReal } from '@common/decorators/to-real';
 
 export class SendLocationDto {
   @IsUUID('4')
   subscriptionId: string;
 
-  @ValidateIf((o) => o.chatId == undefined || o.phone)
+  @ValidateIf((o) => !o.chatId)
   @IsInt()
   phone: number;
 
-  @IsString()
-  @ValidateIf((o) => o.phone == undefined || o.chatId)
+  @IsChatId()
+  @ValidateIf((o) => !o.phone)
   chatId: string;
 
-  @IsNumber()
+  @ToReal()
+  @IsLatitude()
   lat: number;
 
-  @IsNumber()
+  @ToReal()
+  @IsLongitude()
   lng: number;
 
   @IsString()
