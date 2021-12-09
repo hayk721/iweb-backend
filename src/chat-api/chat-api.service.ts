@@ -20,6 +20,7 @@ import {
   SendProductRequest,
   DeleteMessageRequest,
   SendButtonsRequest,
+  InstanceStatus,
 } from './api/sdk';
 import { IChannel } from './interfaces/channel.interface';
 
@@ -289,6 +290,42 @@ export class ChatApiService {
     const messagesApi = await this._chatApi.setChannel(channel).message();
     try {
       return (await messagesApi.sendButtons(sendButtonsRequest, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * Reauthorization is necessary only in case of changing the device or manually pressing \"Logout on all devices\" on the phone. Keep the WhastsApp application open during authorization.  Instance statuses:  **authenticated** -  Authorization passed successfully  **init** -  Initial status   **loading** -  The system is still loading, try again in 1 minute   **got qr code** -  There is a QR code and you need to take a picture of it in the Whatsapp application by going to Menu -> WhatsApp Web -> Add. QR code is valid for one minute.   [Example showing base64 images on a page.](https://stackoverflow.com/questions/31526085/how-to-encode-an-image-into-an-html-file)  Manually easier to get [QR-code as an image](/#getQRCode)    When you request the status of the instance in standby mode (status **\"init\"**), it will automatically turn on. To avoid this behavior, use the **no_wakeup** parameter
+   * @summary Get the account status and QR code for authorization.
+   * @param {IChannel} [channel] channel
+   * @param {boolean} [full] Get full information on the current status
+   * @param {boolean} [noWakeup] Ignore autowakeup
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async getStatus(channel: IChannel, full?: boolean, noWakeup?: boolean, options?: AxiosRequestConfig): Promise<InstanceStatus> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.getStatus(full, noWakeup, options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Direct link to QR-code in the form of an image, not base64.
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async getQRCode(channel: IChannel, options?: AxiosRequestConfig): Promise<InstanceStatus> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.getQRCode(options)).data;
     } catch (e) {
       throw new BadGatewayException(e.message);
     }

@@ -1199,6 +1199,18 @@ export interface SendFileRequest {
      * @memberof SendFileRequest
      */
     'caption'?: string;
+    /**
+     * Try to use a previously uploaded file instead of uploading it with each request
+     * @type {boolean}
+     * @memberof SendFileRequest
+     */
+    'cached'?: boolean;
+    /**
+     * Quoted message ID from the message list
+     * @type {string}
+     * @memberof SendFileRequest
+     */
+    'quotedMsgId'?: string;
 }
 /**
  * 
@@ -1242,6 +1254,24 @@ export interface SendLinkRequest {
      * @memberof SendLinkRequest
      */
     'description'?: string;
+    /**
+     * Quoted message ID from the message list.
+     * @type {string}
+     * @memberof SendMessageRequest
+     */
+    'quotedMsgId'?: string;
+    /**
+     * Phone numbers of the mentioned contacts in an array or in a comma-separated string.
+     * @type {string}
+     * @memberof SendMessageRequest
+     */
+    'mentionedPhones'?: string;
+    /**
+     * Text containing the link.
+     * @type {string}
+     * @memberof SendMessageRequest
+     */
+    'text'?: string;
 }
 /**
  * 
@@ -1304,6 +1334,18 @@ export interface SendMessageRequest {
      * @memberof SendMessageRequest
      */
     'body': string;
+    /**
+     * Quoted message ID from the message list.
+     * @type {string}
+     * @memberof SendMessageRequest
+     */
+    'quotedMsgId'?: string;
+    /**
+     * Phone numbers of the mentioned contacts in an array or in a comma-separated string.
+     * @type {string}
+     * @memberof SendMessageRequest
+     */
+    'mentionedPhones'?: string;
 }
 /**
  *
@@ -1447,6 +1489,12 @@ export interface SendPTTRequest {
      * @memberof SendPTTRequest
      */
     'audio': string;
+    /**
+     * Quoted message ID from the message list
+     * @type {string}
+     * @memberof SendFileRequest
+     */
+    'quotedMsgId'?: string;
 }
 /**
  * 

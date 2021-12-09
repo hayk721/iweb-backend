@@ -16,6 +16,8 @@ import { SendForwardMessageDto } from './dto/send-forward-message.dto';
 import { SendProductDto } from './dto/send-product.dto';
 import { SendButtonsDto } from './dto/send-buttons.dto';
 import { DeleteMessagesDto } from './dto/delete-messages.dto';
+import { GetStatusDto } from './dto/get-status.dto';
+import { SubscriptionDto } from './dto/subscription.dto';
 import {
   SendLinkRequest,
   SendMessageRequest,
@@ -75,6 +77,8 @@ export class ChatApiController {
       body: body.body,
       chatId: body.chatId,
       phone: body.phone,
+      quotedMsgId: body.quotedMsgId,
+      mentionedPhones: body.mentionedPhones,
     };
     return this._chatApiService.sendMessage(subscription, sendMessageRequest);
   }
@@ -96,6 +100,9 @@ export class ChatApiController {
       previewBase64: body.previewBase64,
       title: body.title,
       description: body.description,
+      mentionedPhones: body.mentionedPhones,
+      quotedMsgId: body.quotedMsgId,
+      text: body.text,
     };
     return this._chatApiService.sendLink(subscription, sendLinkRequest);
   }
@@ -116,6 +123,8 @@ export class ChatApiController {
       phone: body.phone,
       filename: body.filename,
       caption: body.caption,
+      cached: body.cached,
+      quotedMsgId: body.quotedMsgId,
     };
     return this._chatApiService.sendFile(subscription, sendFileRequest);
   }
@@ -135,6 +144,7 @@ export class ChatApiController {
       chatId: body.chatId,
       phone: body.phone,
       audio: body.audio,
+      quotedMsgId: body.quotedMsgId,
     };
     return this._chatApiService.sendPTT(subscription, sendPTTRequest);
   }
@@ -275,6 +285,32 @@ export class ChatApiController {
       messageId: body.messageId,
     };
     return this._chatApiService.deleteMessage(subscription, deleteMessageRequest);
+  }
+
+  /**
+   * Get the account status and QR code for authorization.
+   *
+   * @param user
+   * @param params
+   */
+  @Get('status')
+  async getStatus(@CurrentUser() user: User, @Query() params: GetStatusDto) {
+    const { full, noWakeup, subscriptionId } = params;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.getStatus(subscription, full, noWakeup);
+  }
+
+  /**
+   * Direct link to QR-code in the form of an image, not base64.
+   *
+   * @param user
+   * @param params
+   */
+  @Get('qr_code')
+  async getQRCode(@CurrentUser() user: User, @Query() params: SubscriptionDto) {
+    const { subscriptionId } = params;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.getQRCode(subscription);
   }
 
   /**
