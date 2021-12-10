@@ -21,6 +21,13 @@ import {
   DeleteMessageRequest,
   SendButtonsRequest,
   InstanceStatus,
+  InlineResponse200,
+  InlineResponse2001,
+  InlineResponse2002,
+  InlineResponse2003,
+  InlineResponse2004,
+  Settings,
+  InlineResponse2005, Class1InstanceApi,
 } from './api/sdk';
 import { IChannel } from './interfaces/channel.interface';
 
@@ -326,6 +333,126 @@ export class ChatApiService {
     const instanceApi = await this._chatApi.setChannel(channel).instance();
     try {
       return (await instanceApi.getQRCode(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Logout from WhatsApp Web to get new QR code.
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async logout(channel: IChannel, options?: AxiosRequestConfig): Promise<InlineResponse200> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.logout(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Returns the active session if the device has connected another instance of Web WhatsApp
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async takeover(channel: IChannel, options?: AxiosRequestConfig): Promise<InlineResponse2001> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.takeover(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Updates the QR code after its expired
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async expiry(channel: IChannel, options?: AxiosRequestConfig): Promise<InlineResponse2002> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.expiry(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Repeat the manual synchronization attempt with the device
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async retry(channel: IChannel, options?: AxiosRequestConfig): Promise<InlineResponse2003> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.retry(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   *
+   * @summary Reboot your whatsapp instance.
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async reboot(channel: IChannel, options?: AxiosRequestConfig): Promise<InlineResponse2004> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.reboot(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
+   * @summary Get settings
+   * @param {IChannel} [channel] channel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof Class1InstanceApi
+   */
+  async getSettings(channel: IChannel, options?: AxiosRequestConfig): Promise<Settings> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.getSettings(options)).data;
+    } catch (e) {
+      throw new BadGatewayException(e.message);
+    }
+  }
+
+  /**
+   * **webhookUrl** - Http or https URL for receiving notifications. For testing, we recommend using [our RequestBin](http://bin.chat-api.com).  **ackNotificationsOn** - Turn on/off ack (message delivered and message viewed) notifications in webhooks. GET method works for the same address.  **chatUpdateOn** - Turn on/off chat update notifications in webhooks. GET method works for the same address.  **videoUploadOn** - Turn on/off receiving video messages.  **proxy** - Socks5 IP address and port proxy for instance.  **guaranteedHooks** - Guarantee webhook delivery. Each webhook will make 20 attempts to send until it receives 200 status from the server.  **ignoreOldMessages** - Do not send webhooks with old messages during authorization.  **processArchive** - Process messages from archived chats.  **instanceStatuses** - Turn on/off collecting instance status changing history.  **webhookStatuses** - Turn on/off collecting messages webhooks statuses.  **statusNotificationsOn** - Turn on/off instance changind status notifications in webhooks.
+   * @summary Set settings
+   * @param {IChannel} [channel] channel
+   * @param {Settings} settings
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @member Class1InstanceApi
+   */
+  async setSettings(channel: IChannel, settings: Settings, options?: AxiosRequestConfig): Promise<InlineResponse2005> {
+    const instanceApi = await this._chatApi.setChannel(channel).instance();
+    try {
+      return (await instanceApi.setSettings(settings, options)).data;
     } catch (e) {
       throw new BadGatewayException(e.message);
     }

@@ -559,6 +559,24 @@ export interface InlineResponse2005 {
      */
     'statusNotificationsOn'?: boolean | null;
     /**
+     *
+     * @type {number}
+     * @memberof Settings
+     */
+    'sendDelay'?: number | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Settings
+     */
+    'disableDialogsArchive'?: boolean | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Settings
+     */
+    'parallelHooks'?: boolean | null;
+    /**
      * 
      * @type {InlineResponse2005Update}
      * @memberof InlineResponse2005
@@ -1612,6 +1630,24 @@ export interface Settings {
      * @memberof Settings
      */
     'statusNotificationsOn'?: boolean | null;
+    /**
+     *
+     * @type {number}
+     * @memberof Settings
+     */
+    'sendDelay'?: number | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Settings
+     */
+    'disableDialogsArchive'?: boolean | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof Settings
+     */
+    'parallelHooks'?: boolean | null;
 }
 /**
  * 

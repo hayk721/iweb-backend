@@ -18,6 +18,7 @@ import { SendButtonsDto } from './dto/send-buttons.dto';
 import { DeleteMessagesDto } from './dto/delete-messages.dto';
 import { GetStatusDto } from './dto/get-status.dto';
 import { SubscriptionDto } from './dto/subscription.dto';
+import { SetSettingsDto } from './dto/set-settings.dto';
 import {
   SendLinkRequest,
   SendMessageRequest,
@@ -29,7 +30,7 @@ import {
   ForwardMessageRequest,
   SendProductRequest,
   DeleteMessageRequest,
-  SendButtonsRequest,
+  SendButtonsRequest, Settings,
 } from './api/sdk';
 import { IChannel } from './interfaces/channel.interface';
 
@@ -313,6 +314,119 @@ export class ChatApiController {
     return this._chatApiService.getQRCode(subscription);
   }
 
+  /**
+   * Logout from WhatsApp Web to get new QR code..
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('logout')
+  async logout(@CurrentUser() user: User, @Body() body: SubscriptionDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.logout(subscription);
+  }
+
+  /**
+   * Returns the active session if the device has connected another instance of Web WhatsApp
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('takeover')
+  async takeover(@CurrentUser() user: User, @Body() body: SubscriptionDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.takeover(subscription);
+  }
+
+  /**
+   * Updates the QR code after its expired
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('expiry')
+  async expiry(@CurrentUser() user: User, @Body() body: SubscriptionDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.expiry(subscription);
+  }
+
+  /**
+   * Repeat the manual synchronization attempt with the device
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('retry')
+  async retry(@CurrentUser() user: User, @Body() body: SubscriptionDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.retry(subscription);
+  }
+
+  /**
+   * Reboot your whatsapp instance
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('reboot')
+  async reboot(@CurrentUser() user: User, @Body() body: SubscriptionDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.reboot(subscription);
+  }
+
+  /**
+   * Get settings
+   *
+   * @param user
+   * @param params
+   * @private
+   */
+  @Get('settings')
+  async getSettings(@CurrentUser() user: User, @Query() params: SubscriptionDto) {
+    const { subscriptionId } = params;
+    const subscription = this._getSubscription(user, subscriptionId);
+    return this._chatApiService.getSettings(subscription);
+  }
+
+  /**
+   * Set settings
+   *
+   * @param user
+   * @param body
+   * @private
+   */
+  @Post('settings')
+  async setSettings(@CurrentUser() user: User, @Body() body: SetSettingsDto) {
+    const { subscriptionId } = body;
+    const subscription = this._getSubscription(user, subscriptionId);
+    const settings: Settings = {
+      webhookUrl: body.webhookUrl,
+      ackNotificationsOn: body.ackNotificationsOn,
+      chatUpdateOn: body.chatUpdateOn,
+      videoUploadOn: body.videoUploadOn,
+      proxy: body.proxy,
+      guaranteedHooks: body.guaranteedHooks,
+      ignoreOldMessages: body.ignoreOldMessages,
+      processArchive: body.processArchive,
+      instanceStatuses: body.instanceStatuses,
+      webhookStatuses: body.webhookStatuses,
+      statusNotificationsOn: body.statusNotificationsOn,
+      sendDelay: body.sendDelay,
+      disableDialogsArchive: body.disableDialogsArchive,
+      parallelHooks: body.parallelHooks,
+    };
+    return this._chatApiService.setSettings(subscription, settings);
+  }
   /**
    * Get subscription and throw error if not exists
    *
